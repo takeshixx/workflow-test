@@ -17,5 +17,9 @@ jobs:
             run: ls -la /build
           - name: List build artifacts
             run: ls -la /output
+          - name: Package Nmap
+            run: $GITHUB_WORKSPACE/package/targets/nmap/package.sh /output x86_64
+          - name: List packaged artifacts
+            run: ls -la /packaged
 
             
