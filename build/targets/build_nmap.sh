@@ -44,6 +44,9 @@ main() {
     fi
     VERSION_CMD=$(get_version "${BUILD_DIRECTORY}/nmap/nmap --version")
     NMAP_VERSION=$(echo "$VERSION_CMD" | grep "Nmap version" | awk '{print $3}')
+    if [ -n "$NMAP_VERSION" ];then
+        NMAP_VERSION="-${NMAP_VERSION}"
+    fi
     cp "${BUILD_DIRECTORY}/nmap/nmap" "${OUTPUT_DIRECTORY}/nmap${NMAP_VERSION}"
     cp "${BUILD_DIRECTORY}/nmap/ncat/ncat" "${OUTPUT_DIRECTORY}/ncat${NMAP_VERSION}"
     cp "${BUILD_DIRECTORY}/nmap/nping/nping" "${OUTPUT_DIRECTORY}/nping${NMAP_VERSION}"
