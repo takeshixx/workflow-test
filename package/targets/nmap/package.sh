@@ -30,7 +30,7 @@ for f in $(ls "$output_dir");do
             ;;
         nmap*)
             mv "${output_dir}/${f}" "${tmp_dir}/nmap"
-            version=${f#"nmap-"}
+            version=${f//nmap-/}
             ;;
         nping*)
             mv "${output_dir}/${f}" "${tmp_dir}/nping"
