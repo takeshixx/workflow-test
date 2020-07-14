@@ -10,7 +10,7 @@ jobs:
           - name: Checkout
             uses: actions/checkout@v2
           - name: Build Nmap
-            run: pwd && ls -la && ls -la $GITHUB_WORKSPACE 
+            run: ./run.sh 
           - name: List /tmp
             run: ls -la /tmp
 
