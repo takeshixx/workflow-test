@@ -1,0 +1,11 @@
+name: Nmap x86_64
+on:
+  workflow_dispatch
+jobs:
+    build:
+        name: Build Nmap x86_64
+        runs-on: ubuntu-latest
+        steps:
+          - name: Build OpenSSL
+          - name: Build Nmap
+            
