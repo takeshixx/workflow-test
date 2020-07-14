@@ -7,7 +7,7 @@ if [ "$#" -ne 1 ];then
     echo "Example: ${0} x86_64"
     exit 1
 fi
-source ../lib.sh
+source $GITHUB_WORKSPACE/build/lib.sh
 init_lib $1
 
 build_nmap() {
