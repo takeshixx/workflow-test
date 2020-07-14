@@ -42,7 +42,7 @@ main() {
         echo "[-] Building Nmap ${CURRENT_ARCH} failed!"
         exit 1
     fi
-    OPENSSH_VERSION=$(get_version "${BUILD_DIRECTORY}/nmap/nmap --version | grep "Nmap version" | awk '{print \$3}'")
+    NMAP_VERSION=$(get_version "${BUILD_DIRECTORY}/nmap/nmap --version | grep "Nmap version" | awk '{print \$3}'")
     cp "${BUILD_DIRECTORY}/nmap/nmap" "${OUTPUT_DIRECTORY}/nmap${NMAP_VERSION}"
     cp "${BUILD_DIRECTORY}/nmap/ncat/ncat" "${OUTPUT_DIRECTORY}/ncat${NMAP_VERSION}"
     cp "${BUILD_DIRECTORY}/nmap/nping/nping" "${OUTPUT_DIRECTORY}/nping${NMAP_VERSION}"
