@@ -49,7 +49,13 @@ if [ ! -d /packaged ];then
 fi
 cp $GITHUB_WORKSPACE/package/targets/nmap/run-nmap.sh "$tmp_dir"
 cd "$tmp_dir"
-tar czf "${output}/nmap-${version}-${arch}-portable.tar.gz" -C "$tmp_dir" .
-cp "${output}/nmap-${version}-${arch}-portable.tar.gz" /packaged
-zip -r -q "${output}/nmap-${version}-${arch}-portable.zip" .
-cp "${output}/nmap-${version}-${arch}-portable.zip" /packaged
+
+TARBALL="nmap-${version}-${arch}-portable.tar.gz"
+tar czf "${output}/${TARBALL}" -C "$tmp_dir" .
+cp "${output}/${TARBALL}" /packaged
+echo "::set-env name=PACKAGED_TARBALL::${TARBALL}"
+
+ZIP="nmap-${version}-${arch}-portable.zip"
+zip -r -q "${output}/${ZIP}" .
+cp "${output}/${ZIP}" /packaged
+echo "::set-env name=PACKAGED_ZIP::${ZIP}"
