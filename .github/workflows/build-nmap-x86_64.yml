@@ -7,6 +7,8 @@ jobs:
         runs-on: ubuntu-latest
         container: muslcc/x86_64:x86_64-linux-musl
         steps:
+          - name: Install dependencies
+            run: apk update && apk add bash
           - name: Checkout
             uses: actions/checkout@v2
           - name: Build Nmap
