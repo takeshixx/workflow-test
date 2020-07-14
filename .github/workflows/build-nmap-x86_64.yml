@@ -5,7 +5,13 @@ jobs:
     build:
         name: Build Nmap x86_64
         runs-on: ubuntu-latest
+        container: muslcc/x86_64:x86_64-linux-musl
         steps:
-          - name: Build OpenSSL
+          - name: Checkout
+            uses: actions/checkout@v2
           - name: Build Nmap
+            run: workspace-test/run.sh
+          - name: List /tmp
+            run: ls -la /tmp
+
             
