@@ -21,5 +21,31 @@ jobs:
             run: $GITHUB_WORKSPACE/package/targets/nmap/package.sh /output x86_64
           - name: List packaged artifacts
             run: ls -la /packaged
-
+          - name: Create release
+            uses: actions/create-release@v1
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            with:
+              tag_name: ${{ github.ref }}
+              release_name: Nmap x86_64 ${{ github.ref }}
+              draft: false
+              prerelease: false
+          - name: Upload tarball
+            uses: actions/upload-release-asset@v1
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            with:
+              upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+              asset_path: /packaged/$PACKAGED_TARBALL
+              asset_name: $PACKAGED_TARBALL
+              asset_content_type: application/gzip
+          - name: Upload zip
+            uses: actions/upload-release-asset@v1
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            with:
+              upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+              asset_path: /packaged/$PACKAGED_ZIP
+              asset_name: $PACKAGED_ZIP
+              asset_content_type: application/zip
             
