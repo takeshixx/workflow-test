@@ -53,9 +53,11 @@ cd "$tmp_dir"
 TARBALL="nmap-${version}-${arch}-portable.tar.gz"
 tar czf "${output}/${TARBALL}" -C "$tmp_dir" .
 cp "${output}/${TARBALL}" /packaged
-echo "::set-env name=PACKAGED_TARBALL::${TARBALL}"
+echo ::set-output name=PACKAGED_TARBALL::${TARBALL}
+echo ::set-output name=PACKAGED_TARBALL_PATH::"/packaged/${TARBALL}"
 
 ZIP="nmap-${version}-${arch}-portable.zip"
 zip -r -q "${output}/${ZIP}" .
 cp "${output}/${ZIP}" /packaged
-echo "::set-env name=PACKAGED_ZIP::${ZIP}"
+echo ::set-output name=PACKAGED_ZIP::${ZIP}
+echo ::set-output name=PACKAGED_ZIP_PATH::"/packaged/${ZIP}"
