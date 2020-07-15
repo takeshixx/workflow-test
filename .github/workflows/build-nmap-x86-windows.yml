@@ -27,8 +27,8 @@ jobs:
     - name: Install dependencies
       run: |
         choco install --force --force-dependencies visualcpp-build-tools 
-        git clone https://github.com/nmap/nmap.git
-        svn checkout https://svn.nmap.org/nmap-mswin32-aux
+        git clone https://github.com/nmap/nmap.git $GITHUB_WORKSPACE/nmap
+        svn checkout https://svn.nmap.org/nmap-mswin32-aux $GITHUB_WORKSPACE/nmap-mswin32-aux
       shell: powershell
 
     - name: Build Nmap x86 Windows
