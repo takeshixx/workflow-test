@@ -25,9 +25,10 @@ jobs:
           - name: Upload tarball
             uses: actions/upload-artifact@v2
             with:
+                name: ${{ steps.package_nmap.outputs.PACKAGED_TARBALL }}
                 path: ${{ steps.package_nmap.outputs.PACKAGED_TARBALL_PATH }}
           - name: Upload zip
             uses: actions/upload-artifact@v2
             with:
+                name: ${{ steps.package_nmap.outputs.PACKAGED_ZIP }}
                 path: ${{ steps.package_nmap.outputs.PACKAGED_ZIP_PATH }}
-
