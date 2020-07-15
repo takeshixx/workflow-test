@@ -13,7 +13,7 @@ init_lib $1
 build_gdb() {
     fetch "$GIT_BINUTILS_GDB" "${BUILD_DIRECTORY}/binutils-gdb" git
     cd "${BUILD_DIRECTORY}/binutils-gdb/" || { echo "Cannot cd to ${BUILD_DIRECTORY}/binutils-gdb/"; exit 1; }
-    git checkout binutils-2_32
+    git checkout binutils-2_35
     #git clean -fdx
 
     cd "${BUILD_DIRECTORY}/binutils-gdb/bfd"
