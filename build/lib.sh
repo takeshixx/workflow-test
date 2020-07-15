@@ -260,7 +260,7 @@ lib_build_ncurses(){
             --host="$(get_host_triple)" \
             --disable-shared \
             --enable-static \
-            --with-build-cc=$(which gcc)
+            --with-build-cc=/x86_64-linux-musl-cross/bin/x86_64-linux-musl-gcc
     make -j4
     echo "[+] Finished building ncurses ${CURRENT_ARCH}"
 }
