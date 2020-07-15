@@ -43,7 +43,7 @@ main() {
     cp "${BUILD_DIRECTORY}/openssh-portable/sshd" "${OUTPUT_DIRECTORY}/sshd${OPENSSH_VERSION}"
     echo "[+] Finished building OpenSSH ${CURRENT_ARCH}"
 
-    OPENSSH_VERSION=$(echo $OPENSSH_VERSION | sed 's/-//g')
+    OPENSSH_VERSION=$(echo $OPENSSH_VERSION | sed 's/-//')
     echo ::set-output name=PACKAGED_NAME::"${OPENSSH_VERSION}"
     echo ::set-output name=PACKAGED_NAME_PATH::"/output/*"
 }
