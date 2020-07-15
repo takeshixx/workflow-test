@@ -254,13 +254,14 @@ lib_build_ncurses(){
     cd "${BUILD_DIRECTORY}/ncurses" || { echo "Cannot cd to ${BUILD_DIRECTORY}/ncurses"; exit 1; }
     git clean -fdx
     git checkout v6_2
-    CFLAGS="${GCC_OPTS}" \
-        CXXFLAGS="${GXX_OPTS}" \
-        ./configure \
-            --host="$(get_host_triple)" \
-            --disable-shared \
-            --enable-static \
-            --with-build-cc=/x86_64-linux-musl-cross/bin/x86_64-linux-musl-gcc
+
+    CMD="CFLAGS=\"${GCC_OPTS}\" "
+    CMD+="CXXFLAGS=\"${GXX_OPTS}\" "
+    CMD+="./configure --host=$(get_host_triple) --disable-shared --enable-static"
+    if [ "$CURRENT_ARCH"!="x86" -a "$CURRENT_ARCH"!="x86_64" ];then
+        CMD+=" --with-build-cc=/x86_64-linux-musl-cross/bin/x86_64-linux-musl-gcc"
+    fi
+    eval "$CMD"
     make -j4
     echo "[+] Finished building ncurses ${CURRENT_ARCH}"
 }
