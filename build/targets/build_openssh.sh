@@ -38,12 +38,13 @@ main() {
         echo "[-] Building OpenSSH ${CURRENT_ARCH} failed!"
         exit 1
     fi
-    OPENSSH_VERSION=$(get_version "${BUILD_DIRECTORY}/openssh-portable/ssh -V 2>&1 | awk '{print \$1}' | sed 's/,//g' | sed 's/-//g'")
-    cp "${BUILD_DIRECTORY}/openssh-portable/ssh" "${OUTPUT_DIRECTORY}/ssh-${OPENSSH_VERSION}"
-    cp "${BUILD_DIRECTORY}/openssh-portable/sshd" "${OUTPUT_DIRECTORY}/sshd-${OPENSSH_VERSION}"
+    OPENSSH_VERSION=$(get_version "${BUILD_DIRECTORY}/openssh-portable/ssh -V 2>&1 | awk '{print \$1}' | sed 's/,//g'")
+    cp "${BUILD_DIRECTORY}/openssh-portable/ssh" "${OUTPUT_DIRECTORY}/ssh${OPENSSH_VERSION}"
+    cp "${BUILD_DIRECTORY}/openssh-portable/sshd" "${OUTPUT_DIRECTORY}/sshd${OPENSSH_VERSION}"
     echo "[+] Finished building OpenSSH ${CURRENT_ARCH}"
 
-    echo ::set-output name=PACKAGED_NAME::"${OPENSSH_VERSION}.zip"
+    OPENSSH_VERSION=$(echo $OPENSSH_VERSION | sed 's/-//g')
+    echo ::set-output name=PACKAGED_NAME::"${OPENSSH_VERSION}"
     echo ::set-output name=PACKAGED_NAME_PATH::"/output/*"
 }
 
