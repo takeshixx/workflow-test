@@ -103,7 +103,7 @@ main() {
     cp "${BUILD_DIRECTORY}/binutils-gdb/gdb/gdbserver/gdbserver" "${OUTPUT_DIRECTORY}/gdbserver${GDBSERVER_VERSION}"
     echo "[+] Finished building GDB ${CURRENT_ARCH}"
 
-    echo ::set-output name=PACKAGED_NAME::"gdb${GDB_VERSION}.zip"
+    echo ::set-output name=PACKAGED_NAME::"gdb${GDB_VERSION}"
     echo ::set-output name=PACKAGED_NAME_PATH::"/output/*"
 }
 
