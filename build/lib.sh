@@ -2,7 +2,7 @@
 GIT_OPENSSL="https://github.com/drwetter/openssl-pm-snapshot.git"
 GIT_BINUTILS_GDB="https://github.com/bminor/binutils-gdb.git"
 GIT_READLINE="https://git.savannah.gnu.org/git/readline.git"
-GIT_NCURSES="https://github.com/mirror/ncurses.git"
+GIT_NCURSES="https://github.com/ThomasDickey/ncurses-snapshots.git"
 
 BUILD_DIRECTORY="/build"
 OUTPUT_DIRECTORY="/output"
@@ -253,6 +253,7 @@ lib_build_ncurses(){
     fetch "$GIT_NCURSES" "${BUILD_DIRECTORY}/ncurses" git
     cd "${BUILD_DIRECTORY}/ncurses" || { echo "Cannot cd to ${BUILD_DIRECTORY}/ncurses"; exit 1; }
     git clean -fdx
+    git checkout v6_2
     CFLAGS="${GCC_OPTS}" \
         CXXFLAGS="${GXX_OPTS}" \
         ./configure \
