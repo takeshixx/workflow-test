@@ -33,14 +33,11 @@ main() {
     build_socat
     local version
     version=$(get_version "${BUILD_DIRECTORY}/socat/socat -V | grep 'socat version' | awk '{print \$3}'")
-    if [ ! -d "${CURRENT_OUTDIR}" ];then
-        mkdir -p "${CURRENT_OUTDIR}"
-    fi
-    cp "${BUILD_DIRECTORY}/socat/socat" "${CURRENT_OUTDIR}/socat${version}"
+    cp "${BUILD_DIRECTORY}/socat/socat" "${OUTPUT_DIRECTORY}/socat${version}"
     echo "[+] Finished building socat ${CURRENT_ARCH}"
 
     echo ::set-output name=PACKAGED_NAME::"socat${version}"
-    echo ::set-output name=PACKAGED_NAME_PATH::"/output/*"
+    echo ::set-output name=PACKAGED_NAME_PATH::"${OUTPUT_DIRECTORY}/*"
 }
 
 main
