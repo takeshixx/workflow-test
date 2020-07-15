@@ -42,6 +42,9 @@ main() {
     cp "${BUILD_DIRECTORY}/openssh-portable/ssh" "${OUTPUT_DIRECTORY}/ssh${OPENSSH_VERSION}"
     cp "${BUILD_DIRECTORY}/openssh-portable/sshd" "${OUTPUT_DIRECTORY}/sshd${OPENSSH_VERSION}"
     echo "[+] Finished building OpenSSH ${CURRENT_ARCH}"
+
+    echo ::set-output name=PACKAGED_NAME::"${OPENSSH_VERSION}"
+    echo ::set-output name=PACKAGED_NAME_PATH::"/output/*"
 }
 
 main
