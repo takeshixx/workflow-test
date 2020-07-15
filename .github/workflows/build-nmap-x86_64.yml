@@ -22,14 +22,8 @@ jobs:
             run: $GITHUB_WORKSPACE/package/targets/nmap/package.sh /output x86_64
           - name: List packaged artifacts
             run: ls -la /packaged
-          - name: Upload tarball
+          - name: Upload artifacts
             uses: actions/upload-artifact@v2
             with:
-                name: ${{ steps.package_nmap.outputs.PACKAGED_TARBALL }}
                 path: /packaged 
-          - name: Upload zip
-            uses: actions/upload-artifact@v2
-            with:
-                name: ${{ steps.package_nmap.outputs.PACKAGED_ZIP }}
-                path: /packaged
 
