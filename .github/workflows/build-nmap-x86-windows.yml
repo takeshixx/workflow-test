@@ -26,6 +26,7 @@ jobs:
         pwd
         ls
         ls $GITHUB_WORKSPACE
+      shell: pwsh
 
     - name: Patch Nmap
       run: |
