@@ -26,9 +26,11 @@ jobs:
       
     - name: List current dir
       run: ls
+      shell: bash
       
     - name: List workspace
       run: ls $GITHUB_WORKSPACE
+      shell: bash
 
     - name: Patch Nmap
       run: |
