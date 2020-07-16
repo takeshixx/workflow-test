@@ -24,7 +24,7 @@ jobs:
 
     - name: Patch Nmap
       run: |
-        patch $GITHUB_WORKSPACE/nmap/libdnet-stripped/include/dnet_winconfig.h < $GITHUB_WORKSPACE/patches/nmap/fix-snprintf-macrodefinition-dnet-winconfig.patch
+        patch $GITHUB_WORKSPACE\nmap\libdnet-stripped\include\dnet_winconfig.h < $GITHUB_WORKSPACE\patches\nmap\fix-snprintf-macrodefinition-dnet-winconfig.patch
       shell: bash
 
     - name: Build Nmap x86 Windows
