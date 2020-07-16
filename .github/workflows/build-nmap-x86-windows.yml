@@ -1,38 +1,29 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Nmap x86 Windows
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   workflow_dispatch
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
     name: Build Nmap x86 Windows
-    # The type of runner that the job will run on
     runs-on: windows-latest
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:    
-    # Runs a set of commands using the runners shell
-    - name: Install dependencies
-      run: |
-        choco install --force --force-dependencies visualcpp-build-tools
-        choco install --force --force-dependencies microsoft-build-tools-2013
-        git clone https://github.com/nmap/nmap.git $GITHUB_WORKSPACE/nmap
-        svn checkout https://svn.nmap.org/nmap-mswin32-aux $GITHUB_WORKSPACE/nmap-mswin32-aux
 
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.0.0
       with:
         vs-version: 15.0
 
+    - name: Install dependencies
+      run: |
+        choco install --force --force-dependencies visualcpp-build-tools
+        git clone https://github.com/nmap/nmap.git $GITHUB_WORKSPACE/nmap
+        svn checkout https://svn.nmap.org/nmap-mswin32-aux $GITHUB_WORKSPACE/nmap-mswin32-aux
+
     - name: Build Nmap x86 Windows
       run: |
         cd $GITHUB_WORKSPACE/nmap/mswin32
-        msbuild nmap.sln /t:Build /p:Configuration=Release
+        msbuild nmap.sln /t:Build /p:Configuration=Release /p:PlatformToolset=v141
 
     - name: List directories
       run: |
