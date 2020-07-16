@@ -21,12 +21,16 @@ jobs:
         git clone https://github.com/nmap/nmap.git $GITHUB_WORKSPACE/nmap
         svn checkout https://svn.nmap.org/nmap-mswin32-aux $GITHUB_WORKSPACE/nmap-mswin32-aux
 
+    - name: Check env
+      run: |
+        pwd
+        ls
+        ls $GITHUB_WORKSPACE
+
     - name: Patch Nmap
       run: |
         git config --global user.email "yolo@nope.com"
         git config --global user.name "administrator"
-        pwd
-        dir
         cd $GITHUB_WORKSPACE/nmap && git am $GITHUB_WORKSPACE/patches/nmap/fix-snprintf-macrodefinition-dnet-winconfig.patch
 
     - name: Build Nmap x86 Windows
