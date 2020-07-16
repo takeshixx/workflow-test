@@ -22,7 +22,10 @@ jobs:
         svn checkout https://svn.nmap.org/nmap-mswin32-aux $GITHUB_WORKSPACE/nmap-mswin32-aux
 
     - name: Patch Nmap
-      run: cd $GITHUB_WORKSPACE/nmap && git am $GITHUB_WORKSPACE/patches/nmap/fix-snprintf-macrodefinition-dnet-winconfig.patch
+      run: |
+        git config --global user.email "yolo@nope.com"
+        git config --global user.name "administrator"
+        cd $GITHUB_WORKSPACE/nmap && git am $GITHUB_WORKSPACE/patches/nmap/fix-snprintf-macrodefinition-dnet-winconfig.patch
 
     - name: Build Nmap x86 Windows
       run: |
