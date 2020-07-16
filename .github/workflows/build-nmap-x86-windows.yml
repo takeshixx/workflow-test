@@ -24,7 +24,6 @@ jobs:
     - name: Check env
       run: |
         pwd; dir; dir $GITHUB_WORKSPACE
-      shell: pwsh
 
     - name: Patch Nmap
       run: |
