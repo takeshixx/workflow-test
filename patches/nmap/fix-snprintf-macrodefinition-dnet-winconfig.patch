@@ -1,0 +1,14 @@
+diff --git a/libdnet-stripped/include/dnet_winconfig.h b/libdnet-stripped/include/dnet_winconfig.h
+index e41907c2a..a04d1afed 100644
+--- a/libdnet-stripped/include/dnet_winconfig.h
++++ b/libdnet-stripped/include/dnet_winconfig.h
+@@ -277,7 +277,9 @@ int	strlcpy(char *, const char *, int);
+ char	*strsep(char **, const char *);
+ #endif
+ 
++#if defined(_MSC_VER) && _MSC_VER < 1900
+ #define snprintf _snprintf
++#endif
+ 
+ /* Without this, Windows will give us all sorts of crap about using functions
+    like strcpy() even if they are done safely */
