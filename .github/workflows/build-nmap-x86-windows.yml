@@ -25,7 +25,7 @@ jobs:
       run: |
         git config --global user.email "yolo@nope.com"
         git config --global user.name "administrator"
-        cd $GITHUB_WORKSPACE/nmap && git am $GITHUB_WORKSPACE/patches/nmap/fix-snprintf-macrodefinition-dnet-winconfig.patch
+        cd $GITHUB_WORKSPACE/nmap && git am ../patches/nmap/fix-snprintf-macrodefinition-dnet-winconfig.patch
 
     - name: Build Nmap x86 Windows
       run: |
