@@ -20,23 +20,11 @@ jobs:
         choco install --force --force-dependencies windows-sdk-8.1
         git clone https://github.com/nmap/nmap.git $GITHUB_WORKSPACE/nmap
         svn checkout https://svn.nmap.org/nmap-mswin32-aux $GITHUB_WORKSPACE/nmap-mswin32-aux
-
-    - name: Current dir
-      run: pwd
-      
-    - name: List current dir
-      run: ls
-      shell: bash
-      
-    - name: List workspace
-      run: ls $GITHUB_WORKSPACE
-      shell: bash
-
-    - name: Patch Nmap
-      run: |
         git config --global user.email "yolo@nope.com"
         git config --global user.name "administrator"
-        cd $GITHUB_WORKSPACE/nmap && git am $GITHUB_WORKSPACE/patches/nmap/fix-snprintf-macrodefinition-dnet-winconfig.patch
+        ls $GITHUB_WORKSPACE
+        cd $GITHUB_WORKSPACE/nmap
+        git am $GITHUB_WORKSPACE/patches/nmap/fix-snprintf-macrodefinition-dnet-winconfig.patch
 
     - name: Build Nmap x86 Windows
       run: |
