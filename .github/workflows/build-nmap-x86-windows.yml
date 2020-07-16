@@ -25,10 +25,10 @@ jobs:
       run: pwd
       
     - name: List current dir
-      run: dir
+      run: ls
       
     - name: List workspace
-      run: dir $GITHUB_WORKSPACE
+      run: ls $GITHUB_WORKSPACE
 
     - name: Patch Nmap
       run: |
