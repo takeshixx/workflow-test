@@ -19,15 +19,15 @@ jobs:
 
     - name: Install dependencies
       run: |
-        choco install --force --force-dependencies visualcpp-build-tools
-        choco install --force --force-dependencies windows-sdk-8.1
-        choco install --force --force-dependencies patch
+        choco install --force --force-dependencies visualcpp-build-tools windows-sdk-8.1
         cd $GITHUB_WORKSPACE
         git clone https://github.com/nmap/nmap.git
         svn checkout https://svn.nmap.org/nmap-mswin32-aux
 
     - name: Patch Nmap
       run: |
+        ls
+        ls $GITHUB_WORKSPACE
         cd $GITHUB_WORKSPACE\\nmap
         git apply --reject --whitespace=fix $GITHUB_WORKSPACE\\patches\\nmap\\fix-snprintf-macrodefinition-dnet-winconfig.patch
       shell: bash
