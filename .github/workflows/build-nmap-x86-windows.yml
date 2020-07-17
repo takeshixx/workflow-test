@@ -20,26 +20,23 @@ jobs:
     - name: Install dependencies
       run: |
         choco install --force --force-dependencies visualcpp-build-tools windows-sdk-8.1
-        pwd
-        ls
-        git clone https://github.com/nmap/nmap.git
-        svn checkout https://svn.nmap.org/nmap-mswin32-aux
+        git clone https://github.com/nmap/nmap.git "$env:GITHUB_WORKSPACE\nmap"
+        svn checkout https://svn.nmap.org/nmap-mswin32-aux "$env:GITHUB_WORKSPACE\nmap-mswin32-aux"
 
     - name: Patch Nmap
       run: |
+        cd "$env:GITHUB_WORKSPACE\nmap"
         pwd
-        ls
-        cd nmap
-        git apply --reject --whitespace=fix $GITHUB_WORKSPACE\\patches\\nmap\\fix-snprintf-macrodefinition-dnet-winconfig.patch
+        git apply --reject --whitespace=fix "$env:GITHUB_WORKSPACE\patches\nmap\fix-snprintf-macrodefinition-dnet-winconfig.patch"
       shell: bash
 
     - name: Build Nmap x86 Windows
       run: |
-        cd $GITHUB_WORKSPACE\\nmap\\mswin32
+        cd "$env:GITHUB_WORKSPACE\nmap\mswin32"
         msbuild nmap.sln /t:Build /p:Configuration=Release /p:PlatformToolset=v141
 
     - name: List directories
       run: |
+        pwd
         ls
-        ls  $GITHUB_WORKSPACE\\nmap\\mswin32\\Release\\
-      shell: powershell
+        ls  "$env:GITHUB_WORKSPACE\nmap\mswin32\Release"
