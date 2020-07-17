@@ -28,7 +28,6 @@ jobs:
         cd "$env:GITHUB_WORKSPACE\nmap"
         pwd
         git apply --reject --whitespace=fix "$env:GITHUB_WORKSPACE\patches\nmap\fix-snprintf-macrodefinition-dnet-winconfig.patch"
-      shell: bash
 
     - name: Build Nmap x86 Windows
       run: |
