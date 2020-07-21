@@ -28,7 +28,7 @@ build_tcpdump() {
 
 main() {
     lib_build_libpcap
-    build_libpcap
+    build_tcpdump
     local version
     version=$(get_version "${BUILD_DIRECTORY}/tcpdump/tcpdump --version | head -n1 | awk '{print \$3}'")
     cp "${BUILD_DIRECTORY}/tcpdump/tcpdump" "${OUTPUT_DIRECTORY}/tcpdump${version}"
