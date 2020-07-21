@@ -19,13 +19,8 @@ jobs:
               ./configure
               make CFLAGS="-w" -j4
 
-          - name: List build dir
-            run: |
-              pwd
-              ls -la
-
           - name: Upload artifacts
             uses: actions/upload-artifact@v2
             with:
                 name: strace-5.7
-                path: /__w/workflow-test/workflow-test/strace/strace
+                path: $GITHUB_WORKSPACE/strace/strace
