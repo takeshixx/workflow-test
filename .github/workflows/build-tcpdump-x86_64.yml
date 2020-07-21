@@ -35,5 +35,5 @@ jobs:
           - name: Upload artifacts
             uses: actions/upload-artifact@v2
             with:
-                name: tcpdump
+                name: tcpdump-4.9.3
                 path: /github/home/tcpdump-4.9.3/tcpdump
