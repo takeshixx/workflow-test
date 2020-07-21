@@ -30,8 +30,8 @@ main() {
     lib_build_libpcap
     build_tcpdump
     local version
-    version=$(get_version "${BUILD_DIRECTORY}/tcpdump/tcpdump --version | head -n1 | awk '{print \$3}'")
-    cp "${BUILD_DIRECTORY}/tcpdump/tcpdump" "${OUTPUT_DIRECTORY}/tcpdump${version}"
+    version=$(get_version "${BUILD_DIRECTORY}/tcpdump/tcpdump --version 2>&1 | head -n1 | awk '{print \$3}'")
+    cp "${BUILD_DIRECTORY}/tcpdump/tcpdump" "${OUTPUT_DIRECTORY}/tcpdump"
     echo "[+] Finished building tcpdump ${CURRENT_ARCH}"
 
     echo ::set-output name=PACKAGED_NAME::"tcpdump${version}"
