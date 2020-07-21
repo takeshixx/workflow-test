@@ -20,6 +20,12 @@ jobs:
               ./configure
               make CFLAGS="-w" -j4
 
+          - name: List build dir
+            run: |
+              pwd
+              ls -la
+              ls -la $GITHUB_WORKSPACE
+
           - name: Upload artifacts
             uses: actions/upload-artifact@v2
             with:
