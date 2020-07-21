@@ -24,7 +24,7 @@ jobs:
               export CFLAGS="-static -I${LIBPCAP_PATH} -L${LIBPCAP_PATH}"
               export CPPFLAGS=-static
               export LDFLAGS=-static
-              ./configure
+              ./configure --host="i486-linux-musl"
               make -j2
 
           - name: Upload artifacts
