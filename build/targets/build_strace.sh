@@ -16,12 +16,14 @@ build_strace() {
     git clean -fdx
     git checkout v5.7
     ./bootstrap
-    CFLAGS="${GCC_OPTS}" \
-        CXXFLAGS="${GXX_OPTS}" \
-        CPPFLAGS="-static" \
-        LDFLAGS="-static -pthread" \
-        ./configure \
-            --host="$(get_host_triple)"
+    CMD="CFLAGS=\"${GCC_OPTS}\" "
+    CMD+="CXXFLAGS=\"${GXX_OPTS}\" "
+    CMD+="LDFLAGS=\"-static -pthread\""
+    CMD+="./configure --host=$(get_host_triple) --disable-shared --enable-static"
+    if [ "$CURRENT_ARCH"!="x86" -a "$CURRENT_ARCH"!="x86_64" ];then
+        CMD+=" --with-build-cc=/x86_64-linux-musl-cross/bin/x86_64-linux-musl-gcc"
+    fi
+    eval "$CMD"
     make CFLAGS="-w" -j4
     strip strace
 }
