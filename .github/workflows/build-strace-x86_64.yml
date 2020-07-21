@@ -20,7 +20,9 @@ jobs:
               make CFLAGS="-w" -j4
 
           - name: List build dir
-            run: ls -la
+            run: |
+              pwd
+              ls -la
 
           - name: Upload artifacts
             uses: actions/upload-artifact@v2
