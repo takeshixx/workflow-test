@@ -15,7 +15,6 @@ build_strace() {
     cd "${BUILD_DIRECTORY}/strace"
     git clean -fdx
     git checkout v5.7
-    export LIBPCAP_PATH="${BUILD_DIRECTORY}/strace"
     ./bootstrap
     CFLAGS="${GCC_OPTS}" \
         CXXFLAGS="${GXX_OPTS}" \
