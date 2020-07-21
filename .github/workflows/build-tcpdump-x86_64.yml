@@ -7,7 +7,7 @@ jobs:
         runs-on: ubuntu-latest
         container: muslcc/x86_64:x86_64-linux-musl
         steps:
-        
+
           - name: Build tcpdump
             run: |
               cd
@@ -27,6 +27,10 @@ jobs:
               export LDFLAGS=-static
               ./configure
               make -j2
+              pwd
+
+          - name: List build dir
+            run: ls -la
 
           - name: Upload artifacts
             uses: actions/upload-artifact@v2
