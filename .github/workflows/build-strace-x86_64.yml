@@ -11,6 +11,7 @@ jobs:
           - name: Build strace
             run: |
               apk update && apk add git make gawk autoconf automake coreutils
+              cd $GITHUB_WORKSPACE
               git clone https://github.com/strace/strace
               cd strace
               git checkout v5.7
