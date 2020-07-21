@@ -14,7 +14,7 @@ jobs:
               wget https://www.tcpdump.org/release/libpcap-1.9.1.tar.gz
               tar xzf libpcap-1.9.1.tar.gz
               cd libpcap-1.9.1/
-              ./configure --with-pcap=linux
+              ./configure --with-pcap=linux --host="i486-linux-musl"
               make -j2
               export LIBPCAP_PATH=$(pwd)
               cd $GITHUB_WORKSPACE
