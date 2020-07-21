@@ -31,4 +31,4 @@ jobs:
             uses: actions/upload-artifact@v2
             with:
                 name: tcpdump-4.9.3
-                path: $GITHUB_WORKSPACE/tcpdump-4.9.3/tcpdump
+                path: /__w/static-toolbox/static-toolbox/tcpdump-4.9.3/tcpdump
