@@ -8,19 +8,24 @@ jobs:
         container: muslcc/x86_64:x86_64-linux-musl
         steps:
 
+          - name: Install dependencies
+            run: apk update && apk add bash git perl make cmake flex bison automake autoconf libtool qemu-arm qemu-aarch64 file texinfo zip wget coreutils
+
+          - name: Checkout
+            uses: actions/checkout@v2
+
           - name: Build strace
-            run: |
-              apk update && apk add git make gawk autoconf automake coreutils
-              git clone https://github.com/strace/strace
-              cd strace
-              git checkout v5.7
-              ./bootstrap
-              export LDFLAGS='-static -pthread'
-              ./configure
-              make CFLAGS="-w" -j4
+            id: build_strace
+            run: $GITHUB_WORKSPACE/build/targets/build_strace.sh x86_64
+
+          - name: List build directory
+            run: ls -la /build
+
+          - name: List build artifacts
+            run: ls -la /output
 
           - name: Upload artifacts
             uses: actions/upload-artifact@v2
             with:
-                name: strace-5.7
-                path: /__w/static-toolbox/static-toolbox/strace/strace
+                name: ${{ steps.build_strace.outputs.PACKAGED_NAME }}
+                path: ${{ steps.build_strace.outputs.PACKAGED_NAME_PATH }}
