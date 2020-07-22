@@ -11,6 +11,14 @@ jobs:
           - name: Install dependencies
             run: apk update && apk add bash git perl make cmake flex bison automake autoconf libtool qemu-arm qemu-aarch64 file texinfo zip wget coreutils gawk
 
+          - name: Install build compiler
+            run: /bin/sh -c "apk update && apk upgrade && apk add --no-cache curl rsync sudo util-linux && cd / && curl -so ${ARCH}-cross.tgz ${HOST}/${ARCH}-cross.tgz && tar -xf ${ARCH}-cross.tgz && rm ${ARCH}-cross.tgz && cd ${ARCH}-cross"
+            env:
+                ARCH: i686-linux-musl
+                HOST: https://more.musl.cc/9.2.1/x86_64-linux-musl
+                TEMP: /tmp
+                USER: 0
+
           - name: Checkout
             uses: actions/checkout@v2
 
