@@ -20,7 +20,8 @@ build_gdb() {
     CC="gcc ${GCC_OPTS}" \
         CXX="g++ ${GXX_OPTS}" \
         ./configure \
-            --host="$(get_host_triple)" \
+            --host="x86_64-unknown-linux-musl" \
+            --target="$(get_host_triple)" \
             --disable-shared \
             --enable-static
     make -j4
@@ -29,7 +30,8 @@ build_gdb() {
     CC="gcc ${GCC_OPTS}" \
         CXX="g++ ${GXX_OPTS}" \
         ./configure \
-            --host="$(get_host_triple)" \
+            --host="x86_64-unknown-linux-musl" \
+            --target="$(get_host_triple)" \
             --disable-shared \
             --enable-static
     make -j4
@@ -38,7 +40,8 @@ build_gdb() {
     CC="gcc ${GCC_OPTS}" \
         CXX="g++ ${GXX_OPTS}" \
         ./configure \
-            --host="$(get_host_triple)" \
+            --host="x86_64-unknown-linux-musl" \
+            --target="$(get_host_triple)" \
             --disable-shared \
             --enable-static
     make -j4
@@ -47,7 +50,8 @@ build_gdb() {
     CC="gcc ${GCC_OPTS}" \
         CXX="g++ ${GXX_OPTS}" \
         ./configure \
-            --host="$(get_host_triple)" \
+            --host="x86_64-unknown-linux-musl" \
+            --target="$(get_host_triple)" \
             --disable-shared \
             --enable-static
     make -j4
@@ -56,7 +60,8 @@ build_gdb() {
     CC="gcc ${GCC_OPTS}" \
         CXX="g++ ${GXX_OPTS}" \
         ./configure \
-            --host="$(get_host_triple)" \
+            --host="x86_64-unknown-linux-musl" \
+            --target="$(get_host_triple)" \
             --disable-shared \
             --enable-static
     make -j4
@@ -65,7 +70,8 @@ build_gdb() {
     CC="gcc ${GCC_OPTS}" \
         CXX="g++ ${GXX_OPTS}" \
         /bin/bash ./configure \
-            --host="$(get_host_triple)" \
+            --host="x86_64-unknown-linux-musl" \
+            --target="$(get_host_triple)" \
             --enable-static
     make -j4
 
