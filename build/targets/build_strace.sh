@@ -20,10 +20,10 @@ build_strace() {
     CMD+="CXXFLAGS=\"${GXX_OPTS}\" "
     CMD+="LDFLAGS=\"-static -pthread\" "
     if [ "$CURRENT_ARCH" != "x86" ] && [ "$CURRENT_ARCH" != "x86_64" ];then
-        CMD+="CC_FOR_BUILD=\"/x86_64-linux-musl-cross/bin/x86_64-linux-musl-gcc\" "
-        CMD+="CPP_FOR_BUILD=\"/x86_64-linux-musl-cross/bin/x86_64-linux-musl-g++\" "
+        CMD+="CC_FOR_BUILD=\"/i686-linux-musl-cross/bin/i686-linux-musl-gcc\" "
+        CMD+="CPP_FOR_BUILD=\"/i686-linux-musl-cross/bin/i686-linux-musl-g++\" "
     fi
-    CMD+="./configure --host=x86_64-unknown-linux-musl --target=$(get_host_triple)"
+    CMD+="./configure --host=i486-linux-musl --target=$(get_host_triple)"
     eval "$CMD"
     make CFLAGS="-w" -j4
     strip strace
