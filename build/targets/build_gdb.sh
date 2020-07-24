@@ -13,8 +13,9 @@ init_lib $1
 build_gdb() {
     fetch "$GIT_BINUTILS_GDB" "${BUILD_DIRECTORY}/binutils-gdb" git
     cd "${BUILD_DIRECTORY}/binutils-gdb/" || { echo "Cannot cd to ${BUILD_DIRECTORY}/binutils-gdb/"; exit 1; }
-    git checkout binutils-2_35-branch
-    #git clean -fdx
+    #git checkout binutils-2_35-branch
+    git clean -fdx
+    git checkout gdb-8.3.1-release
 
     cd "${BUILD_DIRECTORY}/binutils-gdb/bfd"
     CC="gcc ${GCC_OPTS}" \
