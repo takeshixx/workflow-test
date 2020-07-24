@@ -13,7 +13,6 @@ init_lib $1
 build_gdb() {
     fetch "$GIT_BINUTILS_GDB" "${BUILD_DIRECTORY}/binutils-gdb" git
     cd "${BUILD_DIRECTORY}/binutils-gdb/" || { echo "Cannot cd to ${BUILD_DIRECTORY}/binutils-gdb/"; exit 1; }
-    #git checkout binutils-2_35-branch
     git clean -fdx
     git checkout gdb-8.3.1-release
 
@@ -75,7 +74,8 @@ build_gdb() {
         CXX="g++ ${GXX_OPTS}" \
         ./configure \
             --enable-static=yes \
-            --host="$(get_host_triple)" \
+            --host="x86_64-unknown-linux-musl" \
+            --target="$(get_host_triple)" \
             --disable-interprocess-agent
     make -j4
     
@@ -84,7 +84,8 @@ build_gdb() {
         CXX="g++ ${GXX_OPTS}" \
         ./configure \
             --enable-static=yes \
-            --host="$(get_host_triple)" \
+            --host="x86_64-unknown-linux-musl" \
+            --target="$(get_host_triple)" \
             --disable-interprocess-agent
     make -j4
     
