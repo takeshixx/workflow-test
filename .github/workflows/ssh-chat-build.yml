@@ -33,4 +33,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
           name: ssh-chat
-          path: /home/runner/workflow-test/ssh-chat/ssh-chat
+          path: /home/runner/work/workflow-test/workflow-test/ssh-chat/ssh-chat
