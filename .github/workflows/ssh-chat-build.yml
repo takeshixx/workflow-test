@@ -19,8 +19,11 @@ jobs:
     - name: Checkout repo
       run: |
         sudo apt update && sudo apt install -y git build-essential
+        cd $GITHUB_WORKSPACE
         git clone https://github.com/shazow/ssh-chat.git
-        cd ssh-chat
+        
         
     - name: Build
-      run: make build
+      run: |
+        cd $GITHUB_WORKSPACE/ssh-chat
+        make build
