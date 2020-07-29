@@ -20,6 +20,11 @@ jobs:
           sudo apt update && sudo apt install -y wget
           cd $GITHUB_WORKSPACE
           wget http://download.qemu-project.org/qemu-3.1.1.tar.xz
+          
+      - name: termshark
+        run: |
+          cd $GITHUB_WORKSPACE
+          wget https://github.com/gcla/termshark/releases/download/v2.1.1/termshark_2.1.1_linux_x64.tar.gz
 
 
       - name: Upload artifacts
@@ -27,3 +32,9 @@ jobs:
         with:
           name: qemu
           path: /home/runner/work/workflow-test/workflow-test/qemu-3.1.1.tar.xz
+          
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: termshark
+          path: /home/runner/work/workflow-test/workflow-test/termshark_2.1.1_linux_x64.tar.gz
