@@ -1,4 +1,5 @@
 name: sshpass x86_64
+
 on:
   workflow_dispatch
   
@@ -8,29 +9,30 @@ jobs:  # This workflow contains a single job called "build"
     runs-on: ubuntu-latest
     container: muslcc/x86_64:x86_64-linux-musl
     steps:
-    - name: Install dependencies
-      run: |
-        apk update
-        apk add bash git perl make cmake flex bison automake autoconf libtool qemu-arm qemu-aarch64 file texinfo zip wget coreutils gawk glib-dev libgcrypt-dev c-ares-dev libssh-dev libpcap-dev
-        
-    - name: Checkout
-      uses: actions/checkout@v2    
-    
-    - name: Clone repo & patch
-      run: |
-        cd $GUTHUB_WORKSPACE
-        git clone https://github.com/kevinburke/sshpass.git
-        cd sshpass
-        git apply --reject --whitespace=fix $GITHUB_WORKSPACE/patches/sshpass/am-version-update.patch
-        
-    - name: Build
-      run: |
-        cd $GITHUB_WORKSPACE/sshpass
-        CFLAGS="-static -fPIC" ./configure
-        CFLAGS="-static -fPIC" make
-        
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v2
-      with:
-          name: sshpass
-          path: /home/runner/work/workflow-test/workflow-test/sshpass/sshpass
+      
+      - name: Install dependencies
+        run: |
+          apk update
+          apk add bash git perl make cmake flex bison automake autoconf libtool qemu-arm qemu-aarch64 file texinfo zip wget coreutils gawk glib-dev libgcrypt-dev c-ares-dev libssh-dev libpcap-dev
+
+      - name: Checkout
+        uses: actions/checkout@v2    
+
+      - name: Clone repo & patch
+        run: |
+          cd $GUTHUB_WORKSPACE
+          git clone https://github.com/kevinburke/sshpass.git
+          cd sshpass
+          git apply --reject --whitespace=fix $GITHUB_WORKSPACE/patches/sshpass/am-version-update.patch
+
+      - name: Build
+        run: |
+          cd $GITHUB_WORKSPACE/sshpass
+          CFLAGS="-static -fPIC" ./configure
+          CFLAGS="-static -fPIC" make
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+            name: sshpass
+            path: /home/runner/work/workflow-test/workflow-test/sshpass/sshpass
