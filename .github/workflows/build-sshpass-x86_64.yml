@@ -17,8 +17,8 @@ jobs:
     steps:
     - name: Dependencies
       run: |
-        apk update && apk add bash git perl make cmake flex bison automake autoconf libtool qemu-arm qemu-aarch64 file texinfo zip wget coreutils gawk glib-dev libgcrypt-dev c-ares-dev libssh-dev libpcap-dev
-        ln -s /usr/bin/aclocal-1.16 /usr/bin/aclocal-1.15
+        apk update
+        apk add bash git perl make cmake flex bison automake autoconf libtool qemu-arm qemu-aarch64 file texinfo zip wget coreutils gawk glib-dev libgcrypt-dev c-ares-dev libssh-dev libpcap-dev
 
     # Runs a single command using the runners shell
     - name: Build
