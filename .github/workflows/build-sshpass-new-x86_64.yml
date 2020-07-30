@@ -30,6 +30,11 @@ jobs:
         cd sshpass
         git apply --reject --whitespace=fix $GITHUB_WORKSPACE/patches/sshpass/am-version-update.patch
 
+    - name: Build
+      run: |
+        cd $GITHUB_WORKSPACE/sshpass
+        CFLAGS="-static -fPIC" ./configure
+        CFLAGS="-static -fPIC" make
       
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
