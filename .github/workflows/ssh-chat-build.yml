@@ -1,0 +1,36 @@
+name: ssh-chat build
+
+on:
+  workflow_dispatch
+
+jobs:
+
+  build:
+    name: Build ssh-chat
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Set up Go 1.x
+      uses: actions/setup-go@v2
+      with:
+        go-version: ^1.13
+      id: go
+    
+    - name: Checkout repo
+      run: |
+        sudo apt update && sudo apt install -y git build-essential
+        cd $GITHUB_WORKSPACE
+        git clone https://github.com/shazow/ssh-chat.git
+        pwd
+        
+        
+    - name: Build
+      run: |
+        cd $GITHUB_WORKSPACE/ssh-chat
+        make build
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+          name: ssh-chat
+          path: /home/runner/work/workflow-test/workflow-test/ssh-chat/ssh-chat
