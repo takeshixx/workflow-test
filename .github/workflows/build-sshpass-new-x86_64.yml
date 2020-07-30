@@ -13,11 +13,22 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    container: muslcc/x86_64:x86_64-linux-musl
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+    
+    - name: Install dependencies
+      run: apk update && apk add bash git perl make cmake flex bison automake autoconf libtool qemu-arm qemu-aarch64 file texinfo zip wget coreutils gawk glib-dev libgcrypt-dev c-ares-dev libssh-dev libpcap-dev
+      
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+          name: sshpass
+          path: /home/runner/work/workflow-test/workflow-test/sshpass/sshpass
+
 
     # Runs a single command using the runners shell
     - name: Run a one-line script
