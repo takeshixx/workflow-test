@@ -28,7 +28,7 @@ jobs:
         cd $GUTHUB_WORKSPACE
         git clone https://github.com/kevinburke/sshpass.git
         cd sshpass
-        git apply --reject --whitespace=fix $GITHUB_WORKSPACE/patches/sshpass/
+        git apply --reject --whitespace=fix $GITHUB_WORKSPACE/patches/sshpass/am-version-update.patch
         
     - name: Build
       run: |
