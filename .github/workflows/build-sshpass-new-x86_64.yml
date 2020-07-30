@@ -25,7 +25,7 @@ jobs:
     
     - name: Clone repo & patch
       run: |
-        cd $GUTHUB_WORKSPACE
+        cd $GITHUB_WORKSPACE
         git clone https://github.com/kevinburke/sshpass.git
         cd sshpass
         git apply --reject --whitespace=fix $GITHUB_WORKSPACE/patches/sshpass/am-version-update.patch
