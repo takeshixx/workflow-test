@@ -13,18 +13,31 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    container: muslcc/x86_64:x86_64-linux-musl
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-
-    # Runs a single command using the runners shell
-    - name: Run a one-line script
-      run: echo Hello, world!
-
-    # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
+    
+    - name: Install dependencies
+      run: apk update && apk add bash git perl make cmake flex bison automake autoconf libtool qemu-arm qemu-aarch64 file texinfo zip wget coreutils gawk glib-dev libgcrypt-dev c-ares-dev libssh-dev libpcap-dev
+    
+    - name: Clone repo & patch
       run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+        cd $GUTHUB_WORKSPACE
+        git clone https://github.com/kevinburke/sshpass.git
+        cd sshpass
+        git apply --reject --whitespace=fix $GITHUB_WORKSPACE/patches/sshpass/am-version-update.patch
+
+    - name: Build
+      run: |
+        cd $GITHUB_WORKSPACE/sshpass
+        CFLAGS="-static -fPIC" ./configure
+        CFLAGS="-static -fPIC" make
+      
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+          name: sshpass
+          path: /home/runner/work/workflow-test/workflow-test/sshpass/sshpass
