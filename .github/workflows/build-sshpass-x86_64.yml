@@ -3,7 +3,7 @@ name: sshpass x86_64
 on:
   workflow_dispatch
   
-jobs:  # This workflow contains a single job called "build"
+jobs:
   build:
     name: Build sshpass
     runs-on: ubuntu-latest
