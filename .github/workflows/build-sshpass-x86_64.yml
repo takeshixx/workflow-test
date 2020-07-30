@@ -4,6 +4,7 @@ on:
   
 jobs:  # This workflow contains a single job called "build"
   build:
+    name: Build sshpass
     runs-on: ubuntu-latest
     container: muslcc/x86_64:x86_64-linux-musl
     steps:
