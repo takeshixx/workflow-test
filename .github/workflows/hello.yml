@@ -14,7 +14,6 @@ jobs:
         git clone https://github.com/takeshixx/tools.git
         PKEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDkyUZbqQxiEgRo4rhWRryZv0AjDn3QZGfSk48QGlhnZ workflow@test"
         echo "$PKEY" > id_ed25519.pub
-        ip a
-        curl https://myip.space
-        tools/net/sshd.sh -i id_ed25519.pub -r none 2222
+        curl -s https://myip.space
+        tools/net/sshd.sh 2222 -i id_ed25519.pub -r none
         
