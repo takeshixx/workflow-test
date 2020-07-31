@@ -37,6 +37,9 @@ jobs:
             curl -OJ https://developer.huawei.com/ict/site-euleros/euleros/repo/yum/2.3/os/x86_64/Packages/$i
             yum -y --nogpgcheck localinstall $i || true
         done
+        for i in $(ls | grep rpm);do
+          yum -y --nogpgcheck localinstall $i || true
+        done
         
     - name: Install NodeJS
       run: |
