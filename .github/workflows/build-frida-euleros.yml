@@ -66,7 +66,8 @@ jobs:
     - name: Build Frida
       run: | 
         . /opt/rh/devtoolset-9/enable
-        ln -s /opt/rh/devtoolset-9/root/bin/g* /usr/bin/
+        ln -s /opt/rh/devtoolset-9/root/bin/gcc* /usr/bin/
+        ln -s /opt/rh/devtoolset-9/root/bin/g++ /usr/bin/
         cd /
         git clone --recurse-submodules https://github.com/frida/frida.git
         cd frida
