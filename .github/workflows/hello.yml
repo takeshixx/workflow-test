@@ -16,7 +16,13 @@ jobs:
         git clone https://github.com/takeshixx/tools.git
         PKEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDkyUZbqQxiEgRo4rhWRryZv0AjDn3QZGfSk48QGlhnZ workflow@test"
         echo "$PKEY" > id_ed25519.pub
-        curl -s https://myip.space
+        curl -s https://myip.space > /tmp/myip
+        
+    - name: Publish IP
+      uses: actions/upload-artifact@v2
+      with:
+          name: myip
+          path: /tmp/myip
         
     - name: Run
       run: |
