@@ -61,7 +61,7 @@ jobs:
         gpgcheck=0
         gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7"
         echo "$REPO" > /etc/yum.repos.d/centos7.repo
-        yum -y install devtoolset-9-libstdc++-devel devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils glibc-devel python3 bzip2
+        yum -y install devtoolset-9-libstdc++-devel devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils glibc-devel python3 bzip2 git
 
     - name: Build Frida
       run: | 
