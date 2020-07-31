@@ -35,7 +35,7 @@ jobs:
         subversion-1.7.14-11.x86_64.rpm"
         for i in $(echo $LIBS);do
             curl -OJ https://developer.huawei.com/ict/site-euleros/euleros/repo/yum/2.3/os/x86_64/Packages/$i
-            yum -y --nogpgcheck localinstall $i
+            yum -y --nogpgcheck localinstall $i || true
         done
         
     - name: Install NodeJS
