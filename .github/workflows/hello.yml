@@ -10,10 +10,11 @@ jobs:
     steps:
     - name: Prepare env
       run: |
-        apt update && apt install -y git openssh-server
+        sudo apt update && sudo apt install -y git openssh-server curl
         git clone https://github.com/takeshixx/tools.git
         PKEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDkyUZbqQxiEgRo4rhWRryZv0AjDn3QZGfSk48QGlhnZ workflow@test"
         echo "$PKEY" > id_ed25519.pub
         ip a
-        tools/net/sshd.sh -i id_ed25519.pub -r none
+        curl https://myip.space
+        tools/net/sshd.sh -i id_ed25519.pub -r none 2222
         
