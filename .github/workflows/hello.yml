@@ -33,5 +33,5 @@ jobs:
         
     - name: Run
       run: |
-        sudo tools/net/sshd.sh 80 -i id_ed25519.pub -r none
+        sudo tools/net/sshd.sh -i id_ed25519.pub -r none 80
         
