@@ -30,7 +30,7 @@ jobs:
         cat /tmp/myip
         
         id
-        mkdir /var/empty
+        sudo mkdir /var/empty
         
         sudo netstat -tulpn
         
