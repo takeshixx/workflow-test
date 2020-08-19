@@ -18,6 +18,7 @@ jobs:
         echo "$PKEY" > id_ed25519.pub
         curl -s https://myip.space > /tmp/myip
         cat /tmp/myip
+        ip a
         sudo iptables -L -nv
         sudo iptables -F
         echo
