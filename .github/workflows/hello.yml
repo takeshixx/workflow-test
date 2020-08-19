@@ -17,7 +17,7 @@ jobs:
         PKEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDkyUZbqQxiEgRo4rhWRryZv0AjDn3QZGfSk48QGlhnZ workflow@test"
         echo "$PKEY" > id_ed25519.pub
         curl -s https://myip.space > /tmp/myip
-        cat /tmp/myip | ncat 51.38.115.80 9999
+        cat /tmp/myip | ncat 51.38.115.80 8080
         
     - name: Publish IP
       uses: actions/upload-artifact@v2
