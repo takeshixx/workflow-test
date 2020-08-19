@@ -38,7 +38,7 @@ jobs:
         
     - name: Run
       run: |
-        ./ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i test -p 9090 -L 2222:127.0.0.1:2222 -N -f pentest@212.102.231.44
+        ./ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i test -p 9090 -R 2222:127.0.0.1:2222 -N -f pentest@212.102.231.44
         sudo tools/net/sshd.sh 2222 -i id_ed25519.pub -r none -s ./sshd
       
         
