@@ -28,6 +28,9 @@ jobs:
         
         curl -s https://myip.space > /tmp/myip
         cat /tmp/myip
+        
+        id
+        
         sudo netstat -tulpn
         
     - name: Publish IP
