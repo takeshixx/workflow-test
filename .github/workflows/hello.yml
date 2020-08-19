@@ -34,5 +34,6 @@ jobs:
         
     - name: Run
       run: |
-        sudo tools/net/sshd.sh 443 -i id_ed25519.pub -r none
+        #sudo tools/net/sshd.sh 443 -i id_ed25519.pub -r none
+        sudo ncat -vvlk 443
         
