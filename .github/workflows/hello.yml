@@ -28,12 +28,9 @@ jobs:
         
         curl -s https://myip.space > /tmp/myip
         cat /tmp/myip
-        
         id
         sudo mkdir /var/empty
-        
-        ls -la ~/pki.*/
-        cat ~/pki.*/authorized_keys
+        echo "test123" | sudo passwd runner --stdin
         
     - name: Publish IP
       uses: actions/upload-artifact@v2
