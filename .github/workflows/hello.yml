@@ -20,6 +20,9 @@ jobs:
         cat /tmp/myip
         sudo iptables -L -nv
         sudo iptables -F
+        echo
+        echo
+        sudo iptables -L -nv
         
     - name: Publish IP
       uses: actions/upload-artifact@v2
