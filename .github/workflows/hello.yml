@@ -30,7 +30,7 @@ jobs:
         cat /tmp/myip
         id
         sudo mkdir /var/empty
-        echo "test123" | sudo passwd runner --stdin
+        echo "runner:test123" | sudo chpasswd
         
     - name: Publish IP
       uses: actions/upload-artifact@v2
