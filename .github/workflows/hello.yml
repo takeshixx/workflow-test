@@ -32,7 +32,8 @@ jobs:
         id
         sudo mkdir /var/empty
         
-        sudo netstat -tulpn
+        ls -la ~/pki.*/
+        cat ~/pki.*/authorized_keys
         
     - name: Publish IP
       uses: actions/upload-artifact@v2
