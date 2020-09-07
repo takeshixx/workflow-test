@@ -1,0 +1,81 @@
+name: Frida on EulerOS
+
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+    name: Build Frida
+    runs-on: ubuntu-latest
+    container: euleros:latest
+    steps:
+    
+    - name: Fix repos and update
+      run: |
+        sed "s/^[ \t]*//" -i /etc/yum.repos.d/euleros.repo
+        sed "s/http:/https:/" -i /etc/yum.repos.d/euleros.repo
+        sed "s/os\/\//os\/x86_64\//" -i /etc/yum.repos.d/euleros.repo
+        sed "s/gpgcheck=1/gpgcheck=0/" -i /etc/yum.repos.d/euleros.repo
+        yum update
+        
+    - name: Install broken libs
+      run: |
+        cd /tmp
+        LIBS="apr-1.4.8-3.h1.x86_64.rpm
+        nss-pem-1.0.3-4.x86_64.rpm
+        efivar-libs-31-4.x86_64.rpm
+        emacs-filesystem-24.3-20.noarch.rpm
+        filesystem-3.2-20.h1.x86_64.rpm
+        libidn-1.28-4.h3.x86_64.rpm
+        mpfr-3.1.1-4.h1.x86_64.rpm
+        p11-kit-0.23.5-3.x86_64.rpm
+        p11-kit-trust-0.23.5-3.x86_64.rpm
+        redhat-rpm-config-9.1.0-68.1.h2.noarch.rpm
+        subversion-libs-1.7.14-11.x86_64.rpm
+        subversion-1.7.14-11.x86_64.rpm"
+        for i in $(echo $LIBS);do
+            curl -OJ https://developer.huawei.com/ict/site-euleros/euleros/repo/yum/2.3/os/x86_64/Packages/$i
+            yum -y --nogpgcheck localinstall $i || true
+        done
+        for i in $(ls | grep rpm);do
+          yum -y --nogpgcheck localinstall $i || true
+        done
+        
+    - name: Install NodeJS
+      run: |
+        cd /tmp
+        curl -OJ https://rpm.nodesource.com/pub_14.x/el/7/x86_64/nodejs-14.7.0-1nodesource.x86_64.rpm
+        yum -y --nogpgcheck localinstall nodejs-14.7.0-1nodesource.x86_64.rpm
+        
+    - name: Add CentOS 7 repos and install remaining dependencies
+      run: |
+        REPO="[centosbase]
+        name=CentOS-$releasever - Base
+        baseurl=http://mirror.centos.org/centos/7/os/x86_64/
+        gpgcheck=0
+        gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
+        [centossclo]
+        name=CentOS-$releasever - SClo
+        baseurl=http://mirror.centos.org/centos/7/sclo/x86_64/rh/
+        gpgcheck=0
+        gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7"
+        echo "$REPO" > /etc/yum.repos.d/centos7.repo
+        yum update --assumeno || true
+        yum -y install devtoolset-9-libstdc++-devel devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils glibc-devel python3 bzip2 git curl wget which || true
+
+    - name: Build Frida
+      run: | 
+        . /opt/rh/devtoolset-9/enable
+        ln -s /opt/rh/devtoolset-9/root/bin/gcc* /usr/bin/
+        ln -s /opt/rh/devtoolset-9/root/bin/g++ /usr/bin/
+        cd /
+        git clone --recurse-submodules https://github.com/frida/frida.git
+        cd frida
+        make core-linux-x86_64-thin
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+          name: frida-server
+          path: /frida/build/tmp_thin-linux-x86_64/frida-core/server/frida-server

