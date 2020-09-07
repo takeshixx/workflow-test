@@ -19,7 +19,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        choco install --force --force-dependencies visualcpp-build-tools windows-sdk-8.1
+        choco install --force --force-dependencies visualcpp-build-tools windows-sdk-8.1 microsoft-build-tools-2013
         git clone https://github.com/gentilkiwi/mimikatz.git "$env:GITHUB_WORKSPACE\mimikatz"
 
     - name: Build mimikatz x86_64 Windows
