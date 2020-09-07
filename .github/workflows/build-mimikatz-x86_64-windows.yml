@@ -1,11 +1,11 @@
-name: mimikatz x86_64 Windows
+name: Invoke-Mimikatz Randomizer
 
 on:
   workflow_dispatch
 
 jobs:
   build:
-    name: Build mimikatz x86_64 Windows
+    name: Build Invoke-Mimikatz
     runs-on: windows-latest
     steps:    
 
@@ -15,21 +15,32 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.0.0
       with:
-        vs-version: 12.0
+        vs-version: 14.0
 
     - name: Install dependencies
       run: |
         choco install --force --force-dependencies visualcpp-build-tools windows-sdk-8.1
         choco install --force --force-dependencies microsoft-build-tools --version=12.0.21005.20140416
-        git clone https://github.com/gentilkiwi/mimikatz.git "$env:GITHUB_WORKSPACE\mimikatz"
+        git clone https://github.com/matterpreter/DefenderCheck.git "$env:GITHUB_WORKSPACE\DefenderCheck"
 
-    - name: Build mimikatz x86_64 Windows
+    - name: Build DefenderCheck
       run: |
-        cd "$env:GITHUB_WORKSPACE\mimikatz"
-        msbuild mimikatz.sln /t:Build /p:Configuration=Release /p:PlatformToolset=v120
+        cd "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck"
+        msbuild DefenderCheck.sln /t:Build
+    - name: Get Invoke-Mimikatz
+      run: |
+        mkdir -p "$env:GITHUB_WORKSPACE\working"
+        cd "$env:GITHUB_WORKSPACE\working"
+        wget https://github.com/PowerShellMafia/PowerSploit/raw/master/Exfiltration/Invoke-Mimikatz.ps1
+
+    - name: Check current with Defender
+      run: |
+        & "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck\DefenderCheck.exe" $env:GITHUB_WORKSPACE\working\Invoke-Mimikatz.ps1"
 
     - name: List directories
       run: |
         pwd
         ls
-        ls  "$env:GITHUB_WORKSPACE\mimikatz"
+        ls  "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck"
+        ls  "$env:GITHUB_WORKSPACE\working"
+
