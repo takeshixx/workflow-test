@@ -25,7 +25,7 @@ jobs:
     - name: Build mimikatz x86_64 Windows
       run: |
         cd "$env:GITHUB_WORKSPACE\mimikatz"
-        msbuild mimikatz.sln /t:Build /p:Configuration=Release
+        msbuild mimikatz.sln /t:Build /p:Configuration=Release /p:PlatformToolset=v120
 
     - name: List directories
       run: |
