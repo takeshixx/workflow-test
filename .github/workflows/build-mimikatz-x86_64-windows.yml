@@ -35,7 +35,8 @@ jobs:
 
     - name: Check current with Defender
       run: |
-        & "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck\DefenderCheck.exe" "$env:GITHUB_WORKSPACE\working\Invoke-Mimikatz.ps1"
+        cd "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck"
+        .\DefenderCheck.exe "$env:GITHUB_WORKSPACE\working\Invoke-Mimikatz.ps1"
 
     - name: List directories
       run: |
