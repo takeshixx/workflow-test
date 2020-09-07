@@ -31,11 +31,11 @@ jobs:
       run: |
         mkdir -p "$env:GITHUB_WORKSPACE\working"
         cd "$env:GITHUB_WORKSPACE\working"
-        wget https://github.com/PowerShellMafia/PowerSploit/raw/master/Exfiltration/Invoke-Mimikatz.ps1
+        iwr -uri https://github.com/PowerShellMafia/PowerSploit/raw/master/Exfiltration/Invoke-Mimikatz.ps1 -outfile "$env:GITHUB_WORKSPACE\working\Invoke-Mimikatz.ps1""
 
     - name: Check current with Defender
       run: |
-        & "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck\DefenderCheck.exe" $env:GITHUB_WORKSPACE\working\Invoke-Mimikatz.ps1"
+        & "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck\DefenderCheck.exe" "$env:GITHUB_WORKSPACE\working\Invoke-Mimikatz.ps1"
 
     - name: List directories
       run: |
