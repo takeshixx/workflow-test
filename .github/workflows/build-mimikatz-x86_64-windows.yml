@@ -27,6 +27,8 @@ jobs:
       run: |
         cd "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck"
         msbuild DefenderCheck.sln /t:Build
+        ls
+        
     - name: Get Invoke-Mimikatz
       run: |
         mkdir -p "$env:GITHUB_WORKSPACE\working"
