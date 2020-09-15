@@ -19,7 +19,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        choco install --force --force-dependencies windows-sdk-8.1 dotnet4.0
+        choco install --force --force-dependencies visualstudiocommunity2013 windows-sdk-8.1 dotnet4.0
         choco install --force --force-dependencies microsoft-build-tools --version=12.0.21005.1
         type 'C:\\ProgramData\\chocolatey\\logs\\chocolatey.log'
         git clone https://github.com/nmap/nmap.git "$env:GITHUB_WORKSPACE\nmap"
