@@ -32,7 +32,7 @@ jobs:
     - name: Build Nmap x86 Windows
       run: |
         cd "$env:GITHUB_WORKSPACE\nmap\mswin32"
-        msbuild nmap.sln /t:Build /p:Configuration=Release
+        msbuild nmap.sln /t:Build /p:Configuration=Release /p:PlatformToolset=v120
 
     - name: List directories
       run: |
