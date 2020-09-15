@@ -19,7 +19,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        choco install --force --force-dependencies microsoft-visual-cpp-build-tools windows-sdk-8.1
+        choco install --force --force-dependencies microsoft-build-tools-2013 windows-sdk-8.1
         git clone https://github.com/nmap/nmap.git "$env:GITHUB_WORKSPACE\nmap"
         svn checkout https://svn.nmap.org/nmap-mswin32-aux "$env:GITHUB_WORKSPACE\nmap-mswin32-aux"
 
