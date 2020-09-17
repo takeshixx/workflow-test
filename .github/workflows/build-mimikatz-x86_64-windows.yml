@@ -38,7 +38,7 @@ jobs:
       run: |
         mkdir -p "$env:GITHUB_WORKSPACE\working"
         cd "$env:GITHUB_WORKSPACE\working"
-        iwr -uri https://gist.githubusercontent.com/S3cur3Th1sSh1t/08623de0c5cc67d36d4a235cec0f5333/raw/dafbd32d1307c4ebb512e4eb7c43c7e1292bcac9/ObfuscateMimi_First.sh -outfile "$env:GITHUB_WORKSPACE\working\run.sh"
+        iwr -uri https://gist.githubusercontent.com/S3cur3Th1sSh1t/08623de0c5cc67d36d4a235cec0f5333/raw/dafbd32d1307c4ebb512e4eb7c43c7e1292bcac9/ObfuscateMimi_First.sh -outfile run.sh
         sed -i '$ d' run.sh
         
     - name: Run obfuscation script
@@ -50,6 +50,7 @@ jobs:
     - name: Build mimikatz
       run: |
         cd "$env:GITHUB_WORKSPACE\working\windows\"
+        ls
         msbuild /t:Build mimikatz.sln
         
     - name: Check current with Defender
