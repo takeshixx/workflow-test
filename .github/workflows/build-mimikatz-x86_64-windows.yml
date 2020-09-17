@@ -52,7 +52,7 @@ jobs:
         cd "$env:GITHUB_WORKSPACE\working\windows\"
         $MIMI = (gci -filter *.sln | select -exp Name)
         echo $MIMI
-        msbuild /t:Build  "$MIMI.sln"
+        msbuild /t:Build  $MIMI
         
     - name: Check current with Defender
       run: |
