@@ -47,9 +47,13 @@ jobs:
         cd "$GITHUB_WORKSPACE\working"
         bash run.sh
         
+    - name: Build mimikatz
+      run: |
+        cd "$env:GITHUB_WORKSPACE\working\windows\"
+        msbuild /t:Build mimikatz.sln
+        
     - name: Check current with Defender
       run: |
         ls "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck\DefenderCheck\obj\Debug\DefenderCheck.exe"
         ls "$env:GITHUB_WORKSPACE\working\windows\"
-        ls "$env:GITHUB_WORKSPACE\working\windows\Win32\"
         & "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck\DefenderCheck\obj\Debug\DefenderCheck.exe" "$env:GITHUB_WORKSPACE\working\windows\Win32\mimikatz.exe"
