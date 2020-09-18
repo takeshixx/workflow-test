@@ -54,8 +54,9 @@ jobs:
         echo $MIMI
         ls 'C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\'
         ls 'C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\v4.0\\'
+        ls 'C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\v4.0\\V140\\'
         $env:VCTargetsPath='C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\v4.0\\V140\\'
-        msbuild /target:Build /p:Configuration=Release /p:Platform=Win32  $MIMI
+        msbuild /t:mimikatz /p:Configuration=Release /p:Platform=Win32 $MIMI
         
     - name: Check current with Defender
       run: |
