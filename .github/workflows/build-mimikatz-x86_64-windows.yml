@@ -52,11 +52,13 @@ jobs:
         cd "$env:GITHUB_WORKSPACE\working\windows\"
         $MIMI = (gci -filter *.sln | select -exp Name)
         echo $MIMI
+        $PROJ = ([io.path]::GetFileNameWithoutExtension($MIMI))
+        echo $PROJ
         ls 'C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\'
         ls 'C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\v4.0\\'
         ls 'C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\v4.0\\V140\\'
         $env:VCTargetsPath='C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\v4.0\\V140\\'
-        msbuild /t:mimikatz /p:Configuration=Release /p:Platform=Win32 $MIMI
+        msbuild /t:$PROJ /p:Configuration=Release /p:Platform=Win32 $MIMI
         
     - name: Check current with Defender
       run: |
