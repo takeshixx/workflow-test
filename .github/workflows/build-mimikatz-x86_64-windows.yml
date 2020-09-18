@@ -47,7 +47,7 @@ jobs:
         cd "$GITHUB_WORKSPACE\working"
         bash run.sh
     
-    - name: Build mimikatz
+    - name: Build and scan mimikatz
       run: |
         cd "$env:GITHUB_WORKSPACE\working\windows\"
         $MIMI = (gci -filter *.sln | select -exp Name)
@@ -59,9 +59,5 @@ jobs:
         ls 'C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\v4.0\\V140\\'
         $env:VCTargetsPath='C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\v4.0\\V140\\'
         msbuild /t:$PROJ /p:Configuration=Release /p:Platform=Win32 $MIMI
-        
-    - name: Check current with Defender
-      run: |
-        ls "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck\DefenderCheck\obj\Debug\DefenderCheck.exe"
-        ls "$env:GITHUB_WORKSPACE\working\windows\"
-        & "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck\DefenderCheck\obj\Debug\DefenderCheck.exe" "$env:GITHUB_WORKSPACE\working\windows\Win32\mimikatz.exe"
+        & "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck\DefenderCheck\obj\Debug\DefenderCheck.exe" "$env:GITHUB_WORKSPACE\working\windows\Win32\$PROJ.exe"
+
