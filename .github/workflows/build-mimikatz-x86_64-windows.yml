@@ -1,11 +1,11 @@
-name: Invoke-Mimikatz Randomizer
+name: Mimikatz Randomizer
 
 on:
   workflow_dispatch
 
 jobs:
   build:
-    name: Build Invoke-Mimikatz
+    name: Build Randomized Mimikatz
     runs-on: windows-latest
     steps:    
 
@@ -52,6 +52,7 @@ jobs:
         cd "$env:GITHUB_WORKSPACE\working\windows\"
         $MIMI = (gci -filter *.sln | select -exp Name)
         echo $MIMI
+        $env:VCTargetsPath='C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\v4.0\\V120\\'
         msbuild /target:Build /p:Configuration=Release /p:Platform=Win32  $MIMI
         
     - name: Check current with Defender
