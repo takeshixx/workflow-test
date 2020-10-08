@@ -52,22 +52,27 @@ jobs:
       run: |
         cd "$env:GITHUB_WORKSPACE\working\windows\"
         $MIMI = (gci -filter *.sln | select -exp Name)
-        echo $MIMI
         $PROJ = ([io.path]::GetFileNameWithoutExtension($MIMI))
-        echo $PROJ
-        ls 'C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\'
-        ls 'C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\v4.0\\'
-        ls 'C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\v4.0\\V140\\'
         $env:VCTargetsPath='C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\v4.0\\V140\\'
-        #msbuild /t:$PROJ /p:Configuration=Release /p:Platform=Win32 $MIMI
-        msbuild /t:$PROJ /p:Configuration=Release /p:Platform=x64 $MIMI
+        
+        msbuild /t:$PROJ /p:Configuration=Release /p:Platform=Win32 $MIMI
         & "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck\DefenderCheck\obj\Debug\DefenderCheck.exe" "$env:GITHUB_WORKSPACE\working\windows\Win32\$PROJ.exe"
-        echo "::set-output name=PACKAGED_NAME::lolkatz"
-        #echo "::set-output name=PACKAGED_NAME_PATH::$env:GITHUB_WORKSPACE\working\windows\Win32\$PROJ.exe"
-        echo "::set-output name=PACKAGED_NAME_PATH::$env:GITHUB_WORKSPACE\working\windows\x64\$PROJ.exe"
+        echo "::set-output name=PACKAGED_NAME::lolkatz-Win32"
+        echo "::set-output name=PACKAGED_NAME_PATH::$env:GITHUB_WORKSPACE\working\windows\Win32\$PROJ.exe"
+        
+        msbuild /t:$PROJ /p:Configuration=Release /p:Platform=x64 $MIMI
+         & "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck\DefenderCheck\obj\Debug\DefenderCheck.exe" "$env:GITHUB_WORKSPACE\working\windows\x64\$PROJ.exe"
+        echo "::set-output name=PACKAGED_NAMEx64::lolkatz-x64"
+        echo "::set-output name=PACKAGED_NAME_PATHx64::$env:GITHUB_WORKSPACE\working\windows\x64\$PROJ.exe"
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
           name: ${{ steps.build_mimi.outputs.PACKAGED_NAME }}
           path: ${{ steps.build_mimi.outputs.PACKAGED_NAME_PATH }}
+          
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+          name: ${{ steps.build_mimi.outputs.PACKAGED_NAMEx64 }}
+          path: ${{ steps.build_mimi.outputs.PACKAGED_NAME_PATHx64 }}
