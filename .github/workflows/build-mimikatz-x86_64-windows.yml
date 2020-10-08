@@ -59,10 +59,12 @@ jobs:
         ls 'C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\v4.0\\'
         ls 'C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\v4.0\\V140\\'
         $env:VCTargetsPath='C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\v4.0\\V140\\'
-        msbuild /t:$PROJ /p:Configuration=Release /p:Platform=Win32 $MIMI
+        #msbuild /t:$PROJ /p:Configuration=Release /p:Platform=Win32 $MIMI
+        msbuild /t:$PROJ /p:Configuration=Release /p:Platform=x64 $MIMI
         & "$env:GITHUB_WORKSPACE\DefenderCheck\DefenderCheck\DefenderCheck\obj\Debug\DefenderCheck.exe" "$env:GITHUB_WORKSPACE\working\windows\Win32\$PROJ.exe"
         echo "::set-output name=PACKAGED_NAME::lolkatz"
-        echo "::set-output name=PACKAGED_NAME_PATH::$env:GITHUB_WORKSPACE\working\windows\Win32\$PROJ.exe"
+        #echo "::set-output name=PACKAGED_NAME_PATH::$env:GITHUB_WORKSPACE\working\windows\Win32\$PROJ.exe"
+        echo "::set-output name=PACKAGED_NAME_PATH::$env:GITHUB_WORKSPACE\working\windows\x64\$PROJ.exe"
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
