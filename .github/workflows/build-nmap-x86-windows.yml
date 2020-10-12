@@ -44,4 +44,4 @@ jobs:
         pwd
         ls
         ls  "$env:GITHUB_WORKSPACE\nmap\mswin32\"
-        ls  "$env:GITHUB_WORKSPACE\nmap\mswin32\Release"
+        #ls  "$env:GITHUB_WORKSPACE\nmap\mswin32\Release"
