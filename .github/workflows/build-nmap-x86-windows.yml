@@ -33,7 +33,7 @@ jobs:
 
     - name: Build Nmap x86 Windows
       run: |
-        #cd "$env:GITHUB_WORKSPACE\nmap\mswin32"
+        cd "$env:GITHUB_WORKSPACE\nmap\mswin32"
         #cp "$env:GITHUB_WORKSPACE\patches\nmap\nmap.rc" .
         #$env:VCTargetsPath='C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\v4.0\\V140\\'
         #ls 'C:\\Program Files (x86)\\MSBuild\\Microsoft.Cpp\\v4.0\\V140\\'
