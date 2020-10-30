@@ -6,38 +6,19 @@ The Linux versions are compiled with the musl-cross toolchain and the openssl-pm
 
 Compilation is done automatically with GitHub Actions.
 
-## Tools
+## Local Setup
 
-### Nmap
+Start container:
 
-![Nmap x86_64](https://github.com/takeshixx/workflow-test/workflows/Nmap%20x86_64/badge.svg)
+```
+sudo docker run -it muslcc/x86_64:armel-linux-musleabihf /bin/sh
+```
 
-![Nmap x86](https://github.com/takeshixx/workflow-test/workflows/Nmap%20x86/badge.svg)
+Inside of the container:
 
-![Nmap ARMHF](https://github.com/takeshixx/workflow-test/workflows/Nmap%20ARMHF/badge.svg)
-
-![Nmap AARCH64](https://github.com/takeshixx/workflow-test/workflows/Nmap%20AARCH64/badge.svg)
-
-### OpenSSH
-
-![OpenSSH x86_64](https://github.com/takeshixx/workflow-test/workflows/OpenSSH%20x86_64/badge.svg)
-
-![OpenSSH x86](https://github.com/takeshixx/workflow-test/workflows/OpenSSH%20x86/badge.svg)
-
-![OpenSSH ARMHF](https://github.com/takeshixx/workflow-test/workflows/OpenSSH%20ARMHF/badge.svg)
-
-![OpenSSH AARCH64](https://github.com/takeshixx/workflow-test/workflows/OpenSSH%20AARCH64/badge.svg)
-
-### socat
-
-![socat x86_64](https://github.com/takeshixx/workflow-test/workflows/socat%20x86_64/badge.svg)
-
-![socat x86](https://github.com/takeshixx/workflow-test/workflows/socat%20x86/badge.svg)
-
-![OpenSSH ARMHF](https://github.com/takeshixx/workflow-test/workflows/OpenSSH%20ARMHF/badge.svg)
-
-![OpenSSH AARCH64](https://github.com/takeshixx/workflow-test/workflows/OpenSSH%20AARCH64/badge.svg)
-
-### GDB
-
-![GDB x86_64](https://github.com/takeshixx/workflow-test/workflows/GDB%20x86_64/badge.svg)
+```bash
+apk update && apk add bash git
+git clone https://github.com/takeshixx/workflow-test.git
+cd workflow-test
+bash build/install_deps_alpine.sh
+```
