@@ -19,6 +19,7 @@ Inside of the container:
 ```bash
 apk update && apk add bash git
 git clone https://github.com/takeshixx/workflow-test.git
-cd workflow-test
+export GITHUB_WORKSPACE=/workflow-test
+cd $GITHUB_WORKSPACE
 bash build/install_deps_alpine.sh
 ```
