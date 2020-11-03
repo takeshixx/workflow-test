@@ -2,6 +2,7 @@ name: gdb & gdbserver
 on:
   workflow_dispatch
 jobs:
+
   build-x86:
     name: Build gdb & gdbserver x86
     runs-on: ubuntu-latest
@@ -24,11 +25,11 @@ jobs:
       - name: Build gdb
         id: build_gdb
         run: |
-          export PATH="$PATH:/i686-linux-musl/bin"
+          export PATH="$PATH:/i686-linux-musl-cross/bin"
           $GITHUB_WORKSPACE/build/targets/build_gdb.sh x86
 
       - name: List build directory
-        run: ls -la /build
+        run: ls -la /
 
       - name: List build artifacts
         run: ls -la /output
@@ -98,7 +99,7 @@ jobs:
       - name: Build gdb
         id: build_gdb
         run: |
-          export PATH="$PATH:/arm-linux-musleabihf/bin"
+          export PATH="$PATH:/arm-linux-musleabihf-cross/bin"
           $GITHUB_WORKSPACE/build/targets/build_gdb.sh armhf
 
       - name: List build directory
@@ -144,7 +145,7 @@ jobs:
       - name: Build gdb
         id: build_gdb
         run: |
-          export PATH="$PATH:/aarch64-linux-musl/bin"
+          export PATH="$PATH:/aarch64-linux-musl-cross/bin"
           $GITHUB_WORKSPACE/build/targets/build_gdb.sh aarch64
 
       - name: List build directory
