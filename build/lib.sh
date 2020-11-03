@@ -46,7 +46,7 @@ get_host_triple(){
     elif [ "$CURRENT_ARCH" == "armhf" ];then
         host="arm-linux-musleabihf"
     elif [ "$CURRENT_ARCH" == "aarch64" ];then
-        host="aarch64-linux-musleabi"
+        host="aarch64-linux-musl"
     fi
     echo $host
 }
