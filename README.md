@@ -23,3 +23,13 @@ export GITHUB_WORKSPACE=/workflow-test
 cd $GITHUB_WORKSPACE
 bash build/install_deps_alpine.sh
 ```
+
+Installing build compiler:
+
+```bash
+export ARCH=x86_64-linux-musl
+export HOST=https://more.musl.cc/9.2.1/x86_64-linux-musl
+export TEMP=/tmp
+export USER=0
+/bin/sh -c "apk update && apk upgrade && apk add --no-cache curl rsync sudo util-linux && cd / && curl -so ${ARCH}-cross.tgz ${HOST}/${ARCH}-cross.tgz && tar -xf ${ARCH}-cross.tgz && rm ${ARCH}-cross.tgz && cd ${ARCH}-cross"
+```
