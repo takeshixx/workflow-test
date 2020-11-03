@@ -11,10 +11,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: sudo bash build/install_deps_alpine.sh
+        run: sudo apk update && sudo apk add bash && sudo bash build/install_deps_alpine.sh
 
       - name: Install dependencies workaround
-        run: /bin/sh -c "apk update && apk upgrade && apk add --no-cache curl rsync sudo util-linux && cd / && curl -so ${ARCH}-cross.tgz ${HOST}/${ARCH}-cross.tgz && tar -xf ${ARCH}-cross.tgz && rm ${ARCH}-cross.tgz && cd ${ARCH}-cross"
+        run: /bin/sh -c "cd / && curl -so ${ARCH}-cross.tgz ${HOST}/${ARCH}-cross.tgz && tar -xf ${ARCH}-cross.tgz && rm ${ARCH}-cross.tgz && cd ${ARCH}-cross"
         env:
             ARCH: i686-linux-musl
             HOST: https://more.musl.cc/9.2.1/x86_64-linux-musl
@@ -48,7 +48,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: sudo bash build/install_deps_alpine.sh
+        run: sudo apk update && sudo apk add bash && sudo bash build/install_deps_alpine.sh
 
       - name: Build gdb
         id: build_gdb
@@ -77,10 +77,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: sudo bash build/install_deps_alpine.sh
+        run: sudo apk update && sudo apk add bash && sudo bash build/install_deps_alpine.sh
 
       - name: Install build compiler
-        run: /bin/sh -c "apk update && apk upgrade && apk add --no-cache curl rsync sudo util-linux && cd / && curl -so ${ARCH}-cross.tgz ${HOST}/${ARCH}-cross.tgz && tar -xf ${ARCH}-cross.tgz && rm ${ARCH}-cross.tgz && cd ${ARCH}-cross"
+        run: /bin/sh -c "cd / && curl -so ${ARCH}-cross.tgz ${HOST}/${ARCH}-cross.tgz && tar -xf ${ARCH}-cross.tgz && rm ${ARCH}-cross.tgz && cd ${ARCH}-cross"
         env:
             ARCH: x86_64-linux-musl
             HOST: https://more.musl.cc/9.2.1/x86_64-linux-musl
@@ -88,7 +88,7 @@ jobs:
             USER: 0
 
       - name: Install dependencies workaround
-        run: /bin/sh -c "apk update && apk upgrade && apk add --no-cache curl rsync sudo util-linux && cd / && curl -so ${ARCH}-cross.tgz ${HOST}/${ARCH}-cross.tgz && tar -xf ${ARCH}-cross.tgz && rm ${ARCH}-cross.tgz && cd ${ARCH}-cross"
+        run: /bin/sh -c "cd / && curl -so ${ARCH}-cross.tgz ${HOST}/${ARCH}-cross.tgz && tar -xf ${ARCH}-cross.tgz && rm ${ARCH}-cross.tgz && cd ${ARCH}-cross"
         env:
             ARCH: arm-linux-musleabihf
             HOST: https://more.musl.cc/9.2.1/x86_64-linux-musl
@@ -123,10 +123,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: sudo bash build/install_deps_alpine.sh
+        run: sudo apk update && sudo apk add bash && sudo bash build/install_deps_alpine.sh
 
       - name: Install build compiler
-        run: /bin/sh -c "apk update && apk upgrade && apk add --no-cache curl rsync sudo util-linux && cd / && curl -so ${ARCH}-cross.tgz ${HOST}/${ARCH}-cross.tgz && tar -xf ${ARCH}-cross.tgz && rm ${ARCH}-cross.tgz && cd ${ARCH}-cross"
+        run: /bin/sh -c "cd / && curl -so ${ARCH}-cross.tgz ${HOST}/${ARCH}-cross.tgz && tar -xf ${ARCH}-cross.tgz && rm ${ARCH}-cross.tgz && cd ${ARCH}-cross"
         env:
             ARCH: x86_64-linux-musl
             HOST: https://more.musl.cc/9.2.1/x86_64-linux-musl
@@ -134,7 +134,7 @@ jobs:
             USER: 0
 
       - name: Install dependencies workaround
-        run: /bin/sh -c "apk update && apk upgrade && apk add --no-cache curl rsync sudo util-linux && cd / && curl -so ${ARCH}-cross.tgz ${HOST}/${ARCH}-cross.tgz && tar -xf ${ARCH}-cross.tgz && rm ${ARCH}-cross.tgz && cd ${ARCH}-cross"
+        run: /bin/sh -c "cd / && curl -so ${ARCH}-cross.tgz ${HOST}/${ARCH}-cross.tgz && tar -xf ${ARCH}-cross.tgz && rm ${ARCH}-cross.tgz && cd ${ARCH}-cross"
         env:
             ARCH: aarch64-linux-musl
             HOST: https://more.musl.cc/9.2.1/x86_64-linux-musl
