@@ -11,14 +11,13 @@ Compilation is done automatically with GitHub Actions.
 Start container:
 
 ```
-sudo docker run -it muslcc/x86_64:armel-linux-musleabihf /bin/sh
+sudo docker run -it -v $(pwd):/workflow-test muslcc/x86_64:arm-linux-musleabihf /bin/sh
 ```
 
 Inside of the container:
 
 ```bash
 apk update && apk add bash git
-git clone https://github.com/takeshixx/workflow-test.git
 export GITHUB_WORKSPACE=/workflow-test
 cd $GITHUB_WORKSPACE
 bash build/install_deps_alpine.sh
