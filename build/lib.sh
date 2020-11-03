@@ -40,9 +40,9 @@ set_http_proxy(){
 get_host_triple(){
     local host
     if [ "$CURRENT_ARCH" == "x86" ];then
-        host="i486-linux-musl"
+        host="i686-linux-musl"
     elif [ "$CURRENT_ARCH" == "x86_64" ];then
-        host="x86_64-unknown-linux-musl"
+        host="x86_64-linux-musl"
     elif [ "$CURRENT_ARCH" == "armhf" ];then
         host="arm-linux-musleabihf"
     elif [ "$CURRENT_ARCH" == "aarch64" ];then

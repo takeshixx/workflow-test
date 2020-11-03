@@ -23,33 +23,28 @@ build_gdb() {
         CMD+="CC_FOR_BUILD=\"/x86_64-linux-musl-cross/bin/x86_64-linux-musl-gcc\" "
         CMD+="CPP_FOR_BUILD=\"/x86_64-linux-musl-cross/bin/x86_64-linux-musl-g++\" "
     fi
-    CMD+="./configure --target=$(get_host_triple) --host=x86_64-linux-musl "
-    CMD+="--disable-shared --enable-static"
+    CMD+="${BUILD_DIRECTORY}/binutils-gdb/configure --build=x86_64-linux-musl --host=$(get_host_triple) "
+    CMD+="--disable-shared --enable-static --enable-gdbserver --disable-nls"
 
-    GDB_CMD="${CMD} --disable-interprocess-agent"
-
-    cd "${BUILD_DIRECTORY}/binutils-gdb/"
-    eval "$GDB_CMD"
-    make -j4
-
-    cd "${BUILD_DIRECTORY}/binutils-gdb/gdbserver"
-    eval "$GDB_CMD"
+    mkdir -p "${BUILD_DIRECTORY}/gdb_build"
+    cd "${BUILD_DIRECTORY}/gdb_build/"
+    eval "$CMD"
     make -j4
     
-    strip "${BUILD_DIRECTORY}/binutils-gdb/gdb/gdb" "${BUILD_DIRECTORY}/binutils-gdb/gdbserver/gdbserver"
+    strip "${BUILD_DIRECTORY}/gdb_build/gdb/gdb" "${BUILD_DIRECTORY}/gdb_build/gdbserver/gdbserver"
 }
 
 main() {
     build_gdb
-    if [ ! -f "${BUILD_DIRECTORY}/binutils-gdb/gdb/gdb" ] || \
-        [ ! -f "${BUILD_DIRECTORY}/binutils-gdb/gdbserver/gdbserver" ];then
+    if [ ! -f "${BUILD_DIRECTORY}/gdb_build/gdb/gdb" ] || \
+        [ ! -f "${BUILD_DIRECTORY}/gdb_build/gdbserver/gdbserver" ];then
         echo "[-] Building GDB ${CURRENT_ARCH} failed!"
         exit 1
     fi
-    GDB_VERSION=$(get_version "${BUILD_DIRECTORY}/binutils-gdb/gdb/gdb --version |head -n1 |awk '{print \$4}'")
-    GDBSERVER_VERSION=$(get_version "${BUILD_DIRECTORY}/binutils-gdb/gdbserver/gdbserver --version |head -n1 |awk '{print \$4}'")
-    cp "${BUILD_DIRECTORY}/binutils-gdb/gdb/gdb" "${OUTPUT_DIRECTORY}/gdb${GDB_VERSION}"
-    cp "${BUILD_DIRECTORY}/binutils-gdb/gdbserver/gdbserver" "${OUTPUT_DIRECTORY}/gdbserver${GDBSERVER_VERSION}"
+    GDB_VERSION=$(get_version "${BUILD_DIRECTORY}/gdb_build/gdb/gdb --version |head -n1 |awk '{print \$4}'")
+    GDBSERVER_VERSION=$(get_version "${BUILD_DIRECTORY}/gdb_build/gdbserver/gdbserver --version |head -n1 |awk '{print \$4}'")
+    cp "${BUILD_DIRECTORY}/gdb_build/gdb/gdb" "${OUTPUT_DIRECTORY}/gdb${GDB_VERSION}"
+    cp "${BUILD_DIRECTORY}/gdb_build/gdbserver/gdbserver" "${OUTPUT_DIRECTORY}/gdbserver${GDBSERVER_VERSION}"
     echo "[+] Finished building GDB ${CURRENT_ARCH}"
 
     echo ::set-output name=PACKAGED_NAME::"gdb${GDB_VERSION}"
