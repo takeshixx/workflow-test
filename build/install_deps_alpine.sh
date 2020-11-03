@@ -22,7 +22,7 @@ apk add \
     gmp-dev \
     libunistring-dev \
     libffi-dev \
-    lttng-ust-dev
+    lttng-ust-dev \
     curl \
     rsync \
     util-linux
