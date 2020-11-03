@@ -21,4 +21,8 @@ apk add \
     gawk \
     gmp-dev \
     libunistring-dev \
-    libffi-dev
+    libffi-dev \
+    lttng-ust-dev
+    curl \
+    rsync \
+    util-linux
