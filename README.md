@@ -8,6 +8,13 @@ Compilation is done automatically with GitHub Actions.
 
 ## Local Setup
 
+Building containers:
+
+* muslcc/x86_64:i686-linux-musl
+* muslcc/x86_64:x86_64-linux-musl
+* muslcc/x86_64:arm-linux-musleabi
+* muslcc/x86_64:aarch64-linux-musl
+
 Start container:
 
 ```
