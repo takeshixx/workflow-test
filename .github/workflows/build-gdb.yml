@@ -1,10 +1,10 @@
-name: gdb & gdbserver
+name: GDB & gdbserver
 on:
   workflow_dispatch
 jobs:
 
   build-x86:
-    name: Build gdb & gdbserver x86
+    name: Build GDB & gdbserver x86
     runs-on: ubuntu-latest
     container: muslcc/x86_64:i686-linux-musl
     steps:
@@ -30,17 +30,11 @@ jobs:
             TEMP: /tmp
             USER: 0
 
-      - name: Build gdb
+      - name: Build GDB
         id: build_gdb
         run: |
           export PATH="$PATH:/i686-linux-musl-cross/bin"
           $GITHUB_WORKSPACE/build/targets/build_gdb.sh x86
-
-      - name: List build directory
-        run: ls -la /
-
-      - name: List build artifacts
-        run: ls -la /output
         
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
@@ -49,7 +43,7 @@ jobs:
             path: ${{ steps.build_gdb.outputs.PACKAGED_NAME_PATH }}
 
   build-x86_64:
-    name: Build gdb & gdbserver x86_64
+    name: Build GDB & gdbserver x86_64
     runs-on: ubuntu-latest
     container: muslcc/x86_64:x86_64-linux-musl
     steps:
@@ -59,16 +53,10 @@ jobs:
       - name: Install dependencies
         run: sudo apk update && sudo apk add bash && sudo bash build/install_deps_alpine.sh
 
-      - name: Build gdb
+      - name: Build GDB
         id: build_gdb
         run: |
           $GITHUB_WORKSPACE/build/targets/build_gdb.sh x86_64
-
-      - name: List build directory
-        run: ls -la /build
-
-      - name: List build artifacts
-        run: ls -la /output
         
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
@@ -78,7 +66,7 @@ jobs:
 
 
   build-armhf:
-    name: Build gdb & gdbserver ARMHF
+    name: Build GDB & gdbserver ARMHF
     runs-on: ubuntu-latest
     container: muslcc/x86_64:arm-linux-musleabihf
     steps:
@@ -109,12 +97,6 @@ jobs:
         run: |
           export PATH="$PATH:/arm-linux-musleabihf-cross/bin"
           $GITHUB_WORKSPACE/build/targets/build_gdb.sh armhf
-
-      - name: List build directory
-        run: ls -la /build
-
-      - name: List build artifacts
-        run: ls -la /output
         
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
@@ -124,7 +106,7 @@ jobs:
 
 
   build-aarch64:
-    name: Build gdb & gdbserver AARCH64
+    name: Build GDB & gdbserver AARCH64
     runs-on: ubuntu-latest
     container: muslcc/x86_64:aarch64-linux-musl
     steps:
@@ -154,17 +136,11 @@ jobs:
         run: |
           patch /aarch64-linux-musl-cross/aarch64-linux-musl/include/asm/sigcontext.h < $GITHUB_WORKSPACE/patches/gdb/gdb-aarch64-header-sigcontext-fix.patch
 
-      - name: Build gdb
+      - name: Build GDB
         id: build_gdb
         run: |
           export PATH="$PATH:/aarch64-linux-musl-cross/bin"
           $GITHUB_WORKSPACE/build/targets/build_gdb.sh aarch64
-
-      - name: List build directory
-        run: ls -la /build
-
-      - name: List build artifacts
-        run: ls -la /output
         
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
