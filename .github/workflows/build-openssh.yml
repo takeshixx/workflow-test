@@ -47,7 +47,7 @@ jobs:
     build-armhf:
       name: Build OpenSSH ARMHF
       runs-on: ubuntu-latest
-      container: muslcc/x86_64:armel-linux-musleabihf
+      container: muslcc/x86_64:arm-linux-musleabihf
       steps:
         - name: Checkout
           uses: actions/checkout@v2
