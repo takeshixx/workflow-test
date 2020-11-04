@@ -150,6 +150,10 @@ jobs:
             TEMP: /tmp
             USER: 0
 
+      - name: Patch headers
+        run: |
+          patch /aarch64-linux-musl-cross/aarch64-linux-musl/include/asm/sigcontext.h < $GITHUB_WORKSPACE/patches/gdb/gdb-aarch64-header-sigcontext-fix.patch
+
       - name: Build gdb
         id: build_gdb
         run: |
