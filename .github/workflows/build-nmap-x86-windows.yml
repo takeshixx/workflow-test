@@ -18,6 +18,7 @@ jobs:
         #type 'C:\\ProgramData\\chocolatey\\logs\\chocolatey.log'
         git clone https://github.com/nmap/nmap.git "$env:GITHUB_WORKSPACE\nmap"
         svn checkout https://svn.nmap.org/nmap-mswin32-aux "$env:GITHUB_WORKSPACE\nmap-mswin32-aux"
+        git clone https://github.com/robinrowe/libunistd.git "$env:GITHUB_WORKSPACE\libunistd"
 
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
@@ -33,7 +34,7 @@ jobs:
         cd "$env:GITHUB_WORKSPACE\nmap\mswin32"
         pwd
         ls
-        MSBuild.exe nmap.sln /t:Build /p:Configuration="Release"
+        MSBuild.exe nmap.sln /t:Build /p:Configuration="Release" /p:IncludePath="$env:GITHUB_WORKSPACE\libunistd\unistd\"
 
     - name: List directories
       run: |
